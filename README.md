@@ -1,6 +1,6 @@
 
-```
-# Setting Up Your Development Environment
+
+## Setting Up Your Development Environment
 
 Follow these steps to set up your local development environment for this project.
 
@@ -112,5 +112,8 @@ npm update
 
 ## Troubleshooting
 
-- **Ensure all dependencies are installed**: If you encounter issues with missing packages, re-run `npm install`.
+- **Ensure all dependencies are installed**: If you encounter issues with missing packages, re-run 
+```bash
+npm install
 ```
+
