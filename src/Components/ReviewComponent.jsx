@@ -23,7 +23,7 @@ const ReviewComponent = ({comment,name,rate}) => {
 ReviewComponent.propTypes = {
     comment: PropTypes.string,
     name: PropTypes.string,
-    rate: PropTypes.integer
+    rate: PropTypes.number
 }
 
 export default ReviewComponent

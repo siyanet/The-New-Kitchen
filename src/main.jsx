@@ -8,6 +8,8 @@ import SpecialDealsPage from './pages/SpecialDealsPage';
 
 import MenuPage from './pages/MenuPage.jsx';
 import ReviewPage from './pages/ReviewPage.jsx';
+import { Provider } from 'react-redux';
+import store from './Redux/Store.js';
 
 
 const router = createBrowserRouter([
@@ -32,6 +34,9 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-  <RouterProvider router={router} />
+    <Provider store={store}>
+    <RouterProvider router={router} />
+    </Provider>
+ 
   </StrictMode>,
 )

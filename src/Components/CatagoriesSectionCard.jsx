@@ -26,7 +26,7 @@ const CatagoriesSectionCard = ({imgsrc,name,listPrice}) => {
 CatagoriesSectionCard.propTypes = {
     imgsrc: PropTypes.string,
     name: PropTypes.string,
-    listPrice: PropTypes.integer,
+    listPrice: PropTypes.number,
     
 }
 

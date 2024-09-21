@@ -93,21 +93,11 @@ const SpecialDealsSection = () => {
             <div key={item.id} className={classNames}>
               {index == 1 ? (
                 <MenuCardCol
-                  name={item.name}
-                  price={item.price}
-                  disprice={item.disprice}
-                  image={item.imgsrc}
-                  rating={item.rating}
-                  peoplenum={item.peoplenum}
+                item={item}
                 />
               ) : (
                 <MenuCard
-                  name={item.name}
-                  price={item.price}
-                  disprice={item.disprice}
-                  rating={item.rating}
-                  image={item.imgsrc}
-                  peoplenum={item.peoplenum}
+                item={item}
                 />
               )}
             </div>

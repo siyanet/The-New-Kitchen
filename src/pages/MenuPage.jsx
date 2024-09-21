@@ -122,12 +122,7 @@ const MenuPage = () => {
             
              <div className="w-1/2 sm:w-1/4 lg:w-1/5  " key = {index}>
                <MenuCard 
-             name={item.name}
-             price={item.price}
-             disprice={item.disprice}
-             rating={item.rating}
-             image={item.imgsrc}
-             peoplenum={item.peoplenum}
+           item={item}
            />
              </div>
              

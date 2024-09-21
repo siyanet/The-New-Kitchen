@@ -38,7 +38,7 @@ const RecommendedCard = ({imgsrc, onClick,price, name}) => {
 };
 RecommendedCard.propTypes = {
   imgsrc: PropTypes.string,
-  price: PropTypes.integer,
+  price: PropTypes.string,
   name: PropTypes.string,
   onClick: PropTypes.func
 
