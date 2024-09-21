@@ -11,7 +11,7 @@ const TestimonialsSection = () => {
          name= "Bratlee Hamint"/>
         <div className="flex py-3">
             <div className="flex w-1/2 justify-between"> <div><button> . </button><button> . </button><button> . </button></div> </div>
-            <MenuButton name={'see More'} />
+            <MenuButton to={"Review"} name={'see More'} />
             </div>
         </div>
         <div>

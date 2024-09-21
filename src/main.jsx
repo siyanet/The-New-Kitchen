@@ -7,6 +7,7 @@ import LandingPage from './pages/LandingPage.jsx';
 import SpecialDealsPage from './pages/SpecialDealsPage';
 
 import MenuPage from './pages/MenuPage.jsx';
+import ReviewPage from './pages/ReviewPage.jsx';
 
 
 const router = createBrowserRouter([
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {  
     path: '/menu',
     element: <MenuPage/>
+   },
+   {
+    path: '/review',
+    element: <ReviewPage/>
    },
  
 ])
