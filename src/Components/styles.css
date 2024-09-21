@@ -1,0 +1,25 @@
+.underline-hover {
+    position: relative;
+  }
+  .underline-hover::after {
+    content: '';
+    /* position: absolute;
+    left: 0;
+    bottom: 0; */
+    margin: auto;
+    display: block;
+    height: 2px; /* Adjust the thickness of the underline */
+    width: 0;
+    background: #F3274C; /* Custom red color */
+    transition: 0.3s ;
+  }
+  .underline-hover:hover::after {
+    width: 100%;
+  }
+  body {
+    margin: 89;
+    padding: 0;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+  
