@@ -75,7 +75,7 @@ const CatagoriesSection = () => {
 
 
       </div>
-      <div className="mt-14 flex justify-center"><MenuButton onClick={onclick} name="See Our Menu"/></div> 
+      <div className="mt-14 flex justify-center"><MenuButton to={"/Menu"} name="See Our Menu"/></div> 
       
     </div>
   );
