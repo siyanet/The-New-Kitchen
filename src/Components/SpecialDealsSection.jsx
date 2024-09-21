@@ -70,8 +70,7 @@ const SpecialDealsSection = () => {
       peoplenum: 3,
     },
   ];
-
-  const onClick = () => {}
+ 
 
   return (
     <div className="pt-4 pl-3  pr-3 md:pr-6 md:pl-6  mt-20 w-full h-1/5 ">
@@ -115,7 +114,7 @@ const SpecialDealsSection = () => {
           );
         })}
       </div>
-      <div className="mt-8 text-center"><MenuButton onClick={onClick} name="See More"/></div>
+      <div className="mt-8 text-center"><MenuButton to={"/special-deals"} name="See More"/></div>
     </div>
     
   );
