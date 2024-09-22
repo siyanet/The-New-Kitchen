@@ -4,16 +4,16 @@ import Logo from "./logo";
 import NavBars from "./NavBars";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import CartDetail from "./CartDetail";
 
 const GuestNavBar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isCartDetailVisible,setCartDetailVisible] = useState(false);
-  const toggleCart = () => {
+  const toggleCartDetail = () => {
     setCartDetailVisible(!isCartDetailVisible);
   };
   const cartItems = useSelector((state) => state.cart.cartItems);
-  
-
+  const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
@@ -25,7 +25,7 @@ const GuestNavBar = () => {
      
         <div className="w-1/4">
           <Logo />
-          <h1>{cartItems.length}</h1>
+          
         </div>
 
         {/* Burger Icon for Small Screens */}
@@ -47,17 +47,18 @@ const GuestNavBar = () => {
             <NavBars word="Reservation" to={"/"}/>
             <NavBars word="Testimonials" to={"/Review"} />
             <NavBars word="About Us" to={"/"}/>
-            <Link to="/cart" className="relative px-2">
-            <div className="hover:cursor-pointer">
-            <i className="fas fa-shopping-cart text-black text-sm sm:text-base lg:text-xl "></i>
-            <div className="absolute -top-4 -right-3 bg-red text-white rounded-full text-xs h-4 w-4 flex items-center justify-center p-3">{cartItems.length}</div>
-            </div>
-             
-             
-            </Link>
+            <div onClick={toggleCartDetail} className="relative px-2">
+  <div className="hover:cursor-pointer">
+    <i className="fas fa-shopping-cart text-black text-sm sm:text-base lg:text-xl"></i>
+    <div className="absolute -top-4 -right-3 bg-red text-white rounded-full text-xs h-4 w-4 flex items-center justify-center p-3">
+      {totalQuantity}
+    </div>
+  </div>
+</div>
             <Link to=""><li className="p-1 -m-1 border-2 rounded-lg border-red">LogIn</li></Link>
           </ul>
         </div>
+
       </div>
 
       {/* Dropdown Menu for Small Screens */}
@@ -73,6 +74,8 @@ const GuestNavBar = () => {
           </ul>
         </div>
       )}
+
+{isCartDetailVisible && <CartDetail onClose={toggleCartDetail} />}
     </div>
   );
 };

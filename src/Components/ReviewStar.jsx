@@ -1,7 +1,7 @@
 
 import PropTypes from 'prop-types';
 
-const ReviewStar = ({rating,peoplenum}) => {
+const ReviewStar = ({rating,}) => {
     const totalStars = 5;
   return (
     <div className='flex flex-wrap sm:flex-nowrap '>
@@ -16,7 +16,7 @@ const ReviewStar = ({rating,peoplenum}) => {
           
         );
       })}
-      <p className='text-black text-xs lg:text-lg'>({peoplenum})</p>
+     
 
       
     </div>
@@ -24,6 +24,6 @@ const ReviewStar = ({rating,peoplenum}) => {
 };
 ReviewStar.propTypes= {
     rating: PropTypes.number,
-    peoplenum:PropTypes.number,
+   
 }
 export default ReviewStar

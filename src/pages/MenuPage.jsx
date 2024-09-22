@@ -1,82 +1,103 @@
 
+import { useDispatch, useSelector } from 'react-redux';
 import GuestNavBar from '../Components/GuestNavBar'
 import MenuCard from '../Components/MenuCard';
+import { useEffect } from 'react';
+import { fetchMenus } from '../Redux/MenuSlice';
 const MenuPage = () => {
-    const Menu = [
-        {
-          id: 1,
-          imgsrc: "/Menuimg.png",
-          name: "nunija recipe",
-          rating: 3,
-          price: 18.00,
-          disprice: 10.00,
-          peoplenum: 3,
-        },
-        {
-          id: 2,
-          imgsrc: "/Menuimg.png",
-          name: "nunija recipe",
-          rating: 2,
-          price: 18.00,
-          disprice: 10.00,
-          peoplenum: 2,
-        },
-        {
-          id: 3,
-          imgsrc: "/Menuimg.png",
-          name: "nunija recipe",
-          rating: 3,
-          price: 18.00,
-          disprice: 10.00,
-          peoplenum: 3,
-        },
-        {
-          id: 4,
-          imgsrc: "/Menuimg.png",
-          name: "nunija recipe",
-          rating: 3,
-          price: 18.00,
-          disprice: 10.00,
-          peoplenum: 3,
-        },
-        {
-          id: 5,
-          imgsrc: "/Menuimg.png",
-          name: "nunija recipe",
-          rating: 3,
-          price: 18.00,
-          disprice: 10.00,
-          peoplenum: 3,
-        },
-        {
-          id: 6,
-          imgsrc: "/Menuimg.png",
-          name: "nunija recipe",
-          rating: 3,
-          price: 18.00,
-          disprice: 10.00,
-          peoplenum: 3,
-        },
-        {
-          id: 7,
-          imgsrc: "/Menuimg.png",
-          name: "nunija recipe",
-          rating: 3,
-          price: 18.00,
-          disprice: 10.00,
-          peoplenum: 3,
-        },
-        {
-          id: 8,
-          imgsrc: "/Menuimg.png",
-          name: "nunija recipe",
-          rating: 3,
-          price: 18.00,
-          disprice: 10.00,
-          peoplenum: 3,
-        },
-      ];
+    // const Menu = [
+    //     {
+    //       id: 1,
+    //       imgsrc: "/Menuimg.png",
+    //       name: "nunija recipe",
+    //       rating: 3,
+    //       price: 18.00,
+    //       disprice: 10.00,
+    //       peoplenum: 3,
+    //     },
+    //     {
+    //       id: 2,
+    //       imgsrc: "/Menuimg.png",
+    //       name: "nunija recipe",
+    //       rating: 2,
+    //       price: 18.00,
+    //       disprice: 10.00,
+    //       peoplenum: 2,
+    //     },
+    //     {
+    //       id: 3,
+    //       imgsrc: "/Menuimg.png",
+    //       name: "nunija recipe",
+    //       rating: 3,
+    //       price: 18.00,
+    //       disprice: 10.00,
+    //       peoplenum: 3,
+    //     },
+    //     {
+    //       id: 4,
+    //       imgsrc: "/Menuimg.png",
+    //       name: "nunija recipe",
+    //       rating: 3,
+    //       price: 18.00,
+    //       disprice: 10.00,
+    //       peoplenum: 3,
+    //     },
+    //     {
+    //       id: 5,
+    //       imgsrc: "/Menuimg.png",
+    //       name: "nunija recipe",
+    //       rating: 3,
+    //       price: 18.00,
+    //       disprice: 10.00,
+    //       peoplenum: 3,
+    //     },
+    //     {
+    //       id: 6,
+    //       imgsrc: "/Menuimg.png",
+    //       name: "nunija recipe",
+    //       rating: 3,
+    //       price: 18.00,
+    //       disprice: 10.00,
+    //       peoplenum: 3,
+    //     },
+    //     {
+    //       id: 7,
+    //       imgsrc: "/Menuimg.png",
+    //       name: "nunija recipe",
+    //       rating: 3,
+    //       price: 18.00,
+    //       disprice: 10.00,
+    //       peoplenum: 3,
+    //     },
+    //     {
+    //       id: 8,
+    //       imgsrc: "/Menuimg.png",
+    //       name: "nunija recipe",
+    //       rating: 3,
+    //       price: 18.00,
+    //       disprice: 10.00,
+    //       peoplenum: 3,
+    //     },
+    //   ];
+
+    const dispatch = useDispatch();
+    const menus = useSelector((state) => state.menu.menus);
+    const status = useSelector((state) => state.menu.status);
+    const error = useSelector((state) => state.menu.error);
+    useEffect(() => {
+      if(status === "idle"){
+        dispatch(fetchMenus());
+      }
+      
+    },);
+    if (status === "loading"){
+      return <div>Loading...</div>
+    }
+    if(status === "failed"){
+      return <div>Error: {error}</div>
+    }
     return (
+      
       <div className="w-full h-full mx-0 px-0">
         <GuestNavBar />
         <div className="relative w-full h-screen bg-[url('/MenuHeader.png')] bg-cover bg-left lg:bg-center m-0 p-0 flex items-center justify-center">
@@ -117,7 +138,7 @@ const MenuPage = () => {
        </div>
        <div className="flex flex-wrap justify-center sm:justify-between  p-4 gap-3">
         
-         {Menu.map((item,index) =>{
+         {menus.map((item,index) =>{
            return(
             
              <div className="w-1/2 sm:w-1/4 lg:w-1/5  " key = {index}>
