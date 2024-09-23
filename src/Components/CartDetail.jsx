@@ -5,7 +5,7 @@ import CartCard from './CartCard';
 const CartDetail = ({onClose}) => { 
     const cartItems = useSelector((state) => state.cart.cartItems); // Get cart items from Redux store
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0); // Calculate total items
-    const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0); // Calculate total price
+    const totalPrice = cartItems.reduce((total, item) => total + item.selectedPortion.price * item.quantity, 0); // Calculate total price
   
   return (
     <div className='fixed right-0 top-0 w-full sm:w-1/2 h-full bg-white shadow-lg overflow-y-auto'>
@@ -16,7 +16,7 @@ const CartDetail = ({onClose}) => {
 
         <div className="flex-grow overflow-y-auto h-full p-4 space-y-4">
         {cartItems.length > 0 ? (
-        <>{cartItems.map((item) => <CartCard key={item.id} item={item} />)}
+        <>{cartItems.map((item) => <CartCard key={item.menu_id} item={item} />)}
         
         <div className="p-4 border-b-4 border-black text-black bottom-0">
               <div className="flex justify-between">

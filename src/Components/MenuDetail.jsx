@@ -1,7 +1,25 @@
 import PropTypes from "prop-types";
 import ReviewStar from "./ReviewStar";
+import { useState, useEffect } from "react";
+import { fetchExtras } from '../Redux/ExtraSlice';
+import { fetchMenuDetail } from "../Redux/MenuDetailSlice";
+import { useDispatch, useSelector } from "react-redux";
+import CartAddedButton from "./cartAddedButton";
 
-const MenuDetail = ({item,extra}) => {
+
+const MenuDetail = ({id,toggleDetailView}) => {
+  const dispatch = useDispatch();
+  const extras = useSelector((state) => state.extras.items);
+const { item, status,error } = useSelector((state) => state.menuDetail);
+  useEffect(() => {
+    dispatch(fetchMenuDetail(id)); // Fetch the menu details using the menuId
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    if (status === 'idle') {
+        dispatch(fetchExtras());
+    }
+}, [dispatch, status]);
     const [selectedPortion, setSelectedPortion] = useState('');
   const [selectedExtras, setSelectedExtras] = useState(new Set());
 
@@ -19,93 +37,169 @@ const MenuDetail = ({item,extra}) => {
     setSelectedExtras(updatedExtras);
   };
 
+  
+  
+  // // Create the cart item structure
+  // const handleAddToCart = () => {
+  //   const selectedPortionDetails = item.portions.find(
+  //     (portion) => portion.portion_id == selectedPortion
+  //   );
+
+  //   if (selectedPortionDetails) {
+  //     // Create the cart item structure if a portion is selected
+  //     const cartItem = {
+  //       menu_id: item.id,
+  //       menu_name: item.menu_name,
+  //       image: item.image,
+  //       selectedPortion: {
+  //         portion_id: selectedPortionDetails.portion_id,
+  //         portion: selectedPortionDetails.portion,
+  //         price: selectedPortionDetails.discounted_price || selectedPortionDetails.price,
+  //       },
+  //       selectedExtras: Array.from(selectedExtras), // Convert Set to Array
+  //     };
+      
+  //   <CartAddedButton item={cartItem}/>
+  //   }
+  //   else{
+  //     return alert("select portion");
+  //   }
+  //   // If no portion is selected, return null or handle the case
+   
+  // };
+
+
+
+  // Add a check to ensure `item` exists before rendering
+  if (!item) {
+    return <div>No menu details available</div>;
+  }
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+}
+if (error === 'failed') {
+    return <div>Error: {error}</div>;
+}
+
+
   return (
-    <div className='flex w-full md:w-1/2 right-1/2 left-1/2 flex-col'>
-         <i className='fas fa-close text-center text-xl'/>
+    <div className="flex justify-center">
+         <div className='flex w-full   flex-col'>
+         <i onClick={toggleDetailView} className='fas fa-close mb-2 text-center text-4xl'/>
         
         
-         <div className="flex w-full flex-col border-1 border-black shadow-lg rounded-md">
+         <div className="flex w-full bg-purple-400 flex-col border-1 border-black shadow-lg rounded-md">
            <div className="w-full ">
-           <img src={item.menu_image} className="rounded-t-lg object-cover" />
+           <img src={item.image} className="rounded-t-lg object-cover w-full max-h-[200px]" />
            </div>
-           <div className="bg-white p-3 text-center">
+           <div className="bg-white p-3 flex  flex-col gap-2 text-center">
             <p className="font-fredoka text-black font-normal text-base">{item.menu_name}</p>
            <p className="font-nunito font-light text-base ">{item.description}</p>
-           <ReviewStar rating={item.average_rate} />
+           <div className="flex justify-center">  <ReviewStar rating={item.average_rate} /></div>
            </div>
          </div>
-         <div className="flex shadow-md w-full bg-white rounded-lg ">
-            <div className="w-full"> <p className="font-nunito font-bold text-lg text-left border-b-2 border-back">Portions</p></div>
-          
-          
-          
+
+
+
+
+         <div className="flex flex-col mt-5  shadow-md w-full bg-white rounded-lg border-2 border-black border-opacity-65 ">
+            <div className="w-full"> <p className=" px-4 py-2 font-nunito font-bold text-xl text-left border-b-2 border-back">Portions</p></div>
           <div>
-          {item.portions.map((portion) => (
-            <label key={portion.portion}>
+          {item.portions && item.portions.map((portion) => (
+            <div key= {portion.portion_id} className="px-4 py-1"> 
+              <label >
               <input
                 type="radio"
                 name="portion"
-                value={portion.portion}
-                checked={selectedPortion === portion.portion}
+                value={portion.portion_id}
+                checked={selectedPortion == portion.portion_id}
                 onChange={handlePortionChange}
-                className="mr-2"
+                className=""
               />
-                        <span>
+                        <span className="font-nunito font-black text-base">
+                        {portion.portion}
+                       
+                       
+                        <span className="text-red">-----</span>
                 {portion.discounted_price ? (
-                  <>
-                    <span className="line-through">${portion.original_price}</span> 
+                  <div className="inline-block px-2 text-red">
+                   
                     ${portion.discounted_price}
-                  </>
+                    <span className="line-through px-4 text-gray-100  ">${portion.price}</span> 
+                  </div>
                 ) : (
-                  `$${portion.original_price}`
+                  <span className=" px-4 text-red  ">${portion.price}</span> 
                 )}
-                {` (${portion.portion})`}
+              
               </span>
             </label>
+            </div>
+          
           ))}
           </div>
-
-
-
-
          </div>
-      
+
+
+
+{extras?  <div className="flex flex-col border-2 mb-2 border-black border-opacity-65 shadow-md w-full bg-white rounded-lg mt-4">
+        <div className="w-full">
+          <p className="font-nunito font-bold text-lg text-left border-b-2 border-black p-4">Extras</p>
+          <div>
+            {
+                 extras.map((extra,index) =>(
+                    <div className="flex flex-col px-4 py-1" key={index}>
+
+<label key = {index}>
+                  <input
+                    type="checkbox"
+                    value={extra} // Assuming you have more than one extra, adapt as needed
+                    onChange={handleExtraChange}
+                    className="mr-2"
+                  />
+                  <span>{extra.name} (${extra.price})</span>
+                </label>
+                    </div>
+
+                 
+    
+                ))
+
+            }
+           
+            
+          </div>
+        </div>
+      </div> : <div></div>}
+         
+
+
+
+
+      <div className="flex justify-between">
+      <CartAddedButton
+      item={{
+        menu_id: item.id,
+        menu_name: item.menu_name,
+        image: item.image,
+        selectedPortion: {
+          portion_id: selectedPortion,
+          portion: item.portions.find(p => p.portion_id == selectedPortion)?.portion,
+          price: item.portions.find(p => p.portion_id == selectedPortion)?.discounted_price || item.portions.find(p => p.portion_id == selectedPortion)?.price
+        },
+        selectedExtras: Array.from(selectedExtras)
+      }}
+            
+          />
+        
+      </div>
     </div>
+    </div>
+   
   );
 }
 MenuDetail.propTypes = {
-    item: PropTypes.shape({
-        menu_name: PropTypes.string.isRequired, // Menu name is required and of type string
-        menu_image: PropTypes.string, // Menu image can be null or a string
-        description: PropTypes.string.isRequired, // Description is required and of type string
-        location: PropTypes.string.isRequired, // Location is required and of type string
-        category: PropTypes.string.isRequired, // Category is required and of type string
-        average_rate: PropTypes.number.isRequired, // Average rate is required and of type number
-        discount_percentage: PropTypes.number, // Discount percentage is required and of type number
-        portions: PropTypes.arrayOf(
-          PropTypes.shape({
-            portion: PropTypes.string.isRequired, // Portion name is required and of type string
-            original_price: PropTypes.string.isRequired, // Original price is required and of type string
-            discounted_price: PropTypes.number // Discounted price is required and of type number
-          })
-        ).isRequired 
-        // Portions is an array of required objects
-      }).isRequired,
-      extra: PropTypes.shape({
-        name: PropTypes.string.isRequired,            // Name of the extra, required and of type string
-        price: PropTypes.string.isRequired,           // Price of the extra, required and of type string
-        updated_at: PropTypes.string.isRequired,      // Timestamp of the last update, required and of type string
-        created_at: PropTypes.string.isRequired,      // Timestamp of creation, required and of type string
-        id: PropTypes.number.isRequired 
-
-      }).isRequired // The discount object itself is required
-
-
-    
-
-
-
-    
+  id: PropTypes.number,
+  toggleDetailView: PropTypes.func.isRequired  
 };
 
 export default MenuDetail;

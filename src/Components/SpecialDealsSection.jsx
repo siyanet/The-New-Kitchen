@@ -7,7 +7,7 @@ import MenuCardCol from "./MenuCardCol";
 const SpecialDealsSection = () => {
   const Menu = [
     {
-      id: 1,
+      menu_id: 1,
       imgsrc: "/Menuimg.png",
       name: "nunija recipe",
       rating: 3,
@@ -16,7 +16,7 @@ const SpecialDealsSection = () => {
       peoplenum: 3,
     },
     {
-      id: 2,
+      menu_id: 2,
       imgsrc: "/Menuimg.png",
       name: "nunija recipe",
       rating: 2,
@@ -25,7 +25,7 @@ const SpecialDealsSection = () => {
       peoplenum: 2,
     },
     {
-      id: 3,
+      menu_id: 3,
       imgsrc: "/Menuimg.png",
       name: "nunija recipe",
       rating: 3,
@@ -34,7 +34,7 @@ const SpecialDealsSection = () => {
       peoplenum: 3,
     },
     {
-      id: 4,
+      menu_id: 4,
       imgsrc: "/Menuimg.png",
       name: "nunija recipe",
       rating: 3,
@@ -43,7 +43,7 @@ const SpecialDealsSection = () => {
       peoplenum: 3,
     },
     {
-      id: 5,
+      menu_id: 5,
       imgsrc: "/Menuimg.png",
       name: "nunija recipe",
       rating: 3,
@@ -52,7 +52,7 @@ const SpecialDealsSection = () => {
       peoplenum: 3,
     },
     {
-      id: 6,
+      menu_id: 6,
       imgsrc: "/Menuimg.png",
       name: "nunija recipe",
       rating: 3,
@@ -61,7 +61,7 @@ const SpecialDealsSection = () => {
       peoplenum: 3,
     },
     {
-      id: 7,
+      menu_id: 7,
       imgsrc: "/Menuimg.png",
       name: "nunija recipe",
       rating: 3,
@@ -76,7 +76,7 @@ const SpecialDealsSection = () => {
     <div className="pt-4 pl-3  pr-3 md:pr-6 md:pl-6  mt-20 w-full h-1/5 ">
       <h1 className="font-extrabold font-nunito text-xl md:text-lg text-center mb-7">Special Deals</h1>
       <div className="grid grid-row-3 grid-cols-2 md:grid-cols-3 gap-4">
-        {Menu.map((item, index) => {
+        {/* {Menu.map((item, index) => {
           // Determine the class names based on the index
           let classNames = "";  // Default classes
           
@@ -102,7 +102,7 @@ const SpecialDealsSection = () => {
               )}
             </div>
           );
-        })}
+        })} */}
       </div>
       <div className="mt-8 text-center"><MenuButton to={"/special-deals"} name="See More"/></div>
     </div>

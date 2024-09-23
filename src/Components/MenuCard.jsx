@@ -5,6 +5,7 @@ import ReviewStar from './ReviewStar';
 import AddToCartButton from './AddToCartButton';
 
 const MenuCard = ({item}) => {
+
   
    
   return (
@@ -20,7 +21,7 @@ const MenuCard = ({item}) => {
           {item.discount_percentage ? ( <>
             <p className="text-red group-hover:text-white font-nunito font-extrabold text-base">{item.discount_normal_Portion_price}</p>
             <p className ="line-through font-nunito  font-extrabold text-base  text-gray-100">{item.normal_portion_price}</p></> ):
-          <p className="text-red group-hover:text-white font-nunito font-extrabold text-base">{item.discount_normal_Portion_price}</p>
+          <p className="text-red group-hover:text-white font-nunito font-extrabold text-base">{item.normal_portion_price}</p>
            }
          
            </div>
