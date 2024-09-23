@@ -46,8 +46,8 @@ AddToCartButton.propTypes = {
       portion_id: PropTypes.number.isRequired,
       portion: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
-    }).isRequired,
-    selectedExtras: PropTypes.arrayOf(PropTypes.string).isRequired,
+    }),
+    selectedExtras: PropTypes.arrayOf(PropTypes.string),
   }),
 };
 

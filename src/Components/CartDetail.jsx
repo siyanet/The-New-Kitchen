@@ -6,7 +6,8 @@ const CartDetail = ({onClose}) => {
     const cartItems = useSelector((state) => state.cart.cartItems); // Get cart items from Redux store
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0); // Calculate total items
     const totalPrice = cartItems.reduce((total, item) => total + item.selectedPortion.price * item.quantity, 0); // Calculate total price
-  
+  console.log("cartItems");
+    console.log(cartItems);
   return (
     <div className='fixed right-0 top-0 w-full sm:w-1/2 h-full bg-white shadow-lg overflow-y-auto'>
         <div className="flex justify-between p-5">

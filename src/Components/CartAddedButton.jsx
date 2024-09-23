@@ -3,7 +3,9 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '../Redux/cartSlice';
 import RedButton from './RedButton';
 import PropTypes from 'prop-types';
-const CartAddedButton = ({item}) => { 
+const CartAddedButton = ({item,onClick}) => {
+  console.log("items"); 
+  console.log(item);
      const dispatch  = useDispatch();
      const handleAddToCart = () =>{
       if (!item.selectedPortion) {
@@ -11,6 +13,7 @@ const CartAddedButton = ({item}) => {
       }
           
           dispatch(addToCart(item));
+          onClick();
         };
   return (
     <RedButton item={item} onClick={handleAddToCart} word ={"Add To Cart"}/>
@@ -39,7 +42,8 @@ CartAddedButton.propTypes = {
         extra_name: PropTypes.string.isRequired, // Extra name
         extra_price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired // Extra price
       })
-    ).isRequired  // Extras should be an array of strings
+    ).isRequired ,
+    onClick: PropTypes.func.isRequired // Extras should be an array of strings
   }).isRequired, // Item object is required
 };
 

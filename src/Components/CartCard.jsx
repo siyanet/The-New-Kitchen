@@ -5,7 +5,7 @@ import { incrementQuantity} from '../Redux/cartSlice';
 import { decrementQuantity } from '../Redux/cartSlice';
 import {  removeFromCart } from '../Redux/cartSlice';
 const CartCard = ({item}) => {
-  console.log(item)
+
     const dispatch = useDispatch();
     const handleIncrement = () => {
         dispatch(incrementQuantity({ id: item.menu_id }));

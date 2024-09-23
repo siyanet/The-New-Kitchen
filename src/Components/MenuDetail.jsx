@@ -5,6 +5,7 @@ import { fetchExtras } from '../Redux/ExtraSlice';
 import { fetchMenuDetail } from "../Redux/MenuDetailSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CartAddedButton from "./cartAddedButton";
+import RedButton from "./RedButton";
 
 
 const MenuDetail = ({id,toggleDetailView}) => {
@@ -175,9 +176,10 @@ if (error === 'failed') {
 
 
 <div className="flex justify-between">
+  {selectedPortion? (                           
   <CartAddedButton
     item={{
-      menu_id: item.id,
+      menu_id: item.menu_id,
       menu_name: item.menu_name,
       image: item.image,
       selectedPortion: selectedPortion
@@ -190,9 +192,10 @@ if (error === 'failed') {
         : null, // Set to null if no portion is selected
       selectedExtras: selectedExtras.length > 0 ? Array.from(selectedExtras) : undefined // Include only if there are extras
     }}
-    disabled={!selectedPortion}
-    onClick={handleButtonClick} // Disable button if no portion is selected
+  // Disable button if no portion is selected
+  onClick = {handleButtonClick}
   />
+  ) : ( <RedButton word={"Add To Cart"} />)}
 </div>
 
 
