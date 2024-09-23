@@ -37,36 +37,15 @@ const { item, status,error } = useSelector((state) => state.menuDetail);
     setSelectedExtras(updatedExtras);
   };
 
-  
-  
-  // // Create the cart item structure
-  // const handleAddToCart = () => {
-  //   const selectedPortionDetails = item.portions.find(
-  //     (portion) => portion.portion_id == selectedPortion
-  //   );
+  const handleButtonClick = () => {
+    // Logic for the button click, e.g., adding to cart can go here
+    // ...
 
-  //   if (selectedPortionDetails) {
-  //     // Create the cart item structure if a portion is selected
-  //     const cartItem = {
-  //       menu_id: item.id,
-  //       menu_name: item.menu_name,
-  //       image: item.image,
-  //       selectedPortion: {
-  //         portion_id: selectedPortionDetails.portion_id,
-  //         portion: selectedPortionDetails.portion,
-  //         price: selectedPortionDetails.discounted_price || selectedPortionDetails.price,
-  //       },
-  //       selectedExtras: Array.from(selectedExtras), // Convert Set to Array
-  //     };
-      
-  //   <CartAddedButton item={cartItem}/>
-  //   }
-  //   else{
-  //     return alert("select portion");
-  //   }
-  //   // If no portion is selected, return null or handle the case
-   
-  // };
+    // Reset the selected portion and extras
+    setSelectedPortion(null);
+    setSelectedExtras([]);
+  };
+ 
 
 
 
@@ -174,7 +153,7 @@ if (error === 'failed') {
 
 
 
-
+{/* 
       <div className="flex justify-between">
       <CartAddedButton
       item={{
@@ -191,7 +170,34 @@ if (error === 'failed') {
             
           />
         
-      </div>
+      </div> */}
+
+
+
+<div className="flex justify-between">
+  <CartAddedButton
+    item={{
+      menu_id: item.id,
+      menu_name: item.menu_name,
+      image: item.image,
+      selectedPortion: selectedPortion
+        ? {
+            portion_id: selectedPortion,
+            portion: item.portions.find(p => p.portion_id == selectedPortion)?.portion,
+            price: item.portions.find(p => p.portion_id == selectedPortion)?.discounted_price || 
+                   item.portions.find(p => p.portion_id == selectedPortion)?.price,
+          }
+        : null, // Set to null if no portion is selected
+      selectedExtras: selectedExtras.length > 0 ? Array.from(selectedExtras) : undefined // Include only if there are extras
+    }}
+    disabled={!selectedPortion}
+    onClick={handleButtonClick} // Disable button if no portion is selected
+  />
+</div>
+
+
+
+
     </div>
     </div>
    
