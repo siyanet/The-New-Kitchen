@@ -18,6 +18,28 @@ const CartDetail = ({onClose}) => {
         <div className="flex-grow overflow-y-auto h-full p-4 space-y-4">
         {cartItems.length > 0 ? (
         <>{cartItems.map((item) => <CartCard key={item.menu_id} item={item} />)}
+
+<div>
+  <p> Extras</p>
+  <ul>
+    {cartItems.map((item, index) => (
+      <li key={index}>
+        {item.selectedExtras && item.selectedExtras.length > 0 ? (
+          <ul>
+            {item.selectedExtras.map((extra, idx) => (
+              <li key={idx}>
+                {extra.name} (${extra.price}) {/* Access name and price of the extra */}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <></>
+        )}
+      </li>
+    ))}
+  </ul>
+</div>
+
         
         <div className="p-4 border-b-4 border-black text-black bottom-0">
               <div className="flex justify-between">

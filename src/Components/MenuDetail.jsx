@@ -6,6 +6,7 @@ import { fetchMenuDetail } from "../Redux/MenuDetailSlice";
 import { useDispatch, useSelector } from "react-redux";
 import CartAddedButton from "./cartAddedButton";
 import RedButton from "./RedButton";
+import YellowButton from "./YellowButton";
 
 
 const MenuDetail = ({id,toggleDetailView}) => {
@@ -37,6 +38,9 @@ const { item, status,error } = useSelector((state) => state.menuDetail);
     }
     setSelectedExtras(updatedExtras);
   };
+  console.log("extras");
+  console.log(selectedExtras);
+
 
   const handleButtonClick = () => {
     // Logic for the button click, e.g., adding to cart can go here
@@ -48,6 +52,10 @@ const { item, status,error } = useSelector((state) => state.menuDetail);
   };
  
 
+  const filteredExtras = Array.from(selectedExtras).map(extraId => {
+    const extra = extras.find(e => e.id === Number(extraId)); // Convert extraId to number
+    return extra ? { id: extra.id, name: extra.name, price: extra.price } : null; // Return the extra object or null
+}).filter(extra => extra !== null);
 
 
   // Add a check to ensure `item` exists before rendering
@@ -132,7 +140,7 @@ if (error === 'failed') {
 <label key = {index}>
                   <input
                     type="checkbox"
-                    value={extra} // Assuming you have more than one extra, adapt as needed
+                    value={extra.id} // Assuming you have more than one extra, adapt as needed
                     onChange={handleExtraChange}
                     className="mr-2"
                   />
@@ -154,24 +162,6 @@ if (error === 'failed') {
 
 
 
-{/* 
-      <div className="flex justify-between">
-      <CartAddedButton
-      item={{
-        menu_id: item.id,
-        menu_name: item.menu_name,
-        image: item.image,
-        selectedPortion: {
-          portion_id: selectedPortion,
-          portion: item.portions.find(p => p.portion_id == selectedPortion)?.portion,
-          price: item.portions.find(p => p.portion_id == selectedPortion)?.discounted_price || item.portions.find(p => p.portion_id == selectedPortion)?.price
-        },
-        selectedExtras: Array.from(selectedExtras)
-      }}
-            
-          />
-        
-      </div> */}
 
 
 
@@ -190,12 +180,14 @@ if (error === 'failed') {
                    item.portions.find(p => p.portion_id == selectedPortion)?.price,
           }
         : null, // Set to null if no portion is selected
-      selectedExtras: selectedExtras.length > 0 ? Array.from(selectedExtras) : undefined // Include only if there are extras
+        selectedExtras: filteredExtras.length > 0 ? filteredExtras : []
     }}
   // Disable button if no portion is selected
   onClick = {handleButtonClick}
   />
   ) : ( <RedButton word={"Add To Cart"} />)}
+
+  <YellowButton onClick={toggleDetailView} word={"Cancel"}/>
 </div>
 
 
