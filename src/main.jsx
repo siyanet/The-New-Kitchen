@@ -10,6 +10,10 @@ import MenuPage from './pages/MenuPage.jsx';
 import ReviewPage from './pages/ReviewPage.jsx';
 import { Provider } from 'react-redux';
 import store from './Redux/Store.js';
+import OwnerDashboard from './OwnerPages/OwnerDashboard.jsx';
+import OwnerMenuView from './OwnerPages/OwnerMenuView.jsx';
+import OwnerCatagoryView from './OwnerPages/OwnerCatagoryView.jsx';
+import AddCategoryForm from './OwnerComponets/AddCatagoryForm.jsx';
 
 
 const router = createBrowserRouter([
@@ -29,6 +33,22 @@ const router = createBrowserRouter([
     path: '/review',
     element: <ReviewPage/>
    },
+   {
+    path: "/OwnerDashboard",
+    element: <OwnerDashboard/>
+   },
+   {
+    path: "/OwnerMenuView",
+    element: <OwnerMenuView/>
+   },
+   {
+    path: "/OwnerCategoryView",
+    element: <OwnerCatagoryView/>
+   },
+   {
+    path: "/AddCategoryForm",
+    element: <AddCategoryForm/>
+   }
  
 ])
 

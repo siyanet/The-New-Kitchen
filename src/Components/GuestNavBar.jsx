@@ -55,7 +55,7 @@ const GuestNavBar = () => {
     </div>
   </div>
 </div>
-            <Link to=""><li className="p-1 -m-1 border-2 rounded-lg border-red">LogIn</li></Link>
+            <Link to="/OwnerDashboard"><li className="p-1 -m-1 border-2 rounded-lg border-red">LogIn</li></Link>
           </ul>
         </div>
 

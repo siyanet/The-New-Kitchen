@@ -5,6 +5,7 @@ import ReviewStar from './ReviewStar';
 import AddToCartButton from './AddToCartButton';
 
 const MenuCard = ({item}) => {
+  console.log(item)
 
   
    

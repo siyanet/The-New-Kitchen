@@ -1,13 +1,42 @@
 
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
 import CartCard from './CartCard';
+import RedButton from './RedButton';
+import { placeOrder } from '../Redux/orderSlice';
 const CartDetail = ({onClose}) => { 
     const cartItems = useSelector((state) => state.cart.cartItems); // Get cart items from Redux store
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0); // Calculate total items
     const totalPrice = cartItems.reduce((total, item) => total + item.selectedPortion.price * item.quantity, 0); // Calculate total price
-  console.log("cartItems");
-    console.log(cartItems);
+    const dispatch = useDispatch();
+    const handleOrderPlacement = () => {
+      const user_id = 2; // Replace with actual user ID
+      const staff_id = 1; // Replace with actual staff ID
+      const table_id = 2; // Replace with actual table ID
+      console.log(cartItems)
+      // Constructing the order object
+      const orderData = {
+          user_id,
+          staff_id,
+          table_id,
+          items: cartItems.map(item => ({
+              menu_id: item.menu_id,
+              portion_id: item.selectedPortion.portion_id, // Assuming you have selected portion ID
+              quantity: item.quantity,
+              note: item.note || '', // Assuming you have notes in the cart items
+          })),
+          extras: cartItems.flatMap(item => 
+              item.selectedExtras.map(extra => ({ id: extra.id }))
+          ), // Flattening extras from all cart items
+      };
+      console.log(orderData);
+
+      // Dispatch the order placement action
+      dispatch(placeOrder(orderData));
+
+  };
+
+
   return (
     <div className='fixed right-0 top-0 w-full sm:w-1/2 h-full bg-white shadow-lg overflow-y-auto'>
         <div className="flex justify-between p-5">
@@ -47,6 +76,7 @@ const CartDetail = ({onClose}) => {
                 <p className="text-lg">Total Price: ${totalPrice.toFixed(2)}</p>
               </div>
             </div>
+            <RedButton word ={"orderPlaced"} onClick={handleOrderPlacement}/>
         </> 
           
         ) : (
