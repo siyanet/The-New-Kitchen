@@ -4,7 +4,9 @@ import menuReducer from "./MenuSlice";
 import menuDetailReducer from "./MenuDetailSlice";
 import extraReducer from "./ExtraSlice";
 import orderReducer from "./orderSlice";
-import categoryReducer from "./CategorySlice"
+import categoryReducer from "./CategorySlice";
+import discountReducer from "./DiscountSlice";
+import orderDetailReducer from "./orderDetailSlice";
 
 
 const store = configureStore({
@@ -15,6 +17,8 @@ const store = configureStore({
         extras: extraReducer,
         order: orderReducer,
         category: categoryReducer,
+        discount: discountReducer,
+        orders: orderDetailReducer,
     },
 });
 export default store;

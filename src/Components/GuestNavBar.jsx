@@ -20,8 +20,8 @@ const GuestNavBar = () => {
 
   return (
     
-    <div className="fixed z-50 w-full bg-white shadow-md p-2">
-      <div className="flex justify-between items-center h-10">
+    <div className="fixed z-50 w-full  shadow-md ">
+      <div className="flex justify-between bg-white py-3 px-6 items-center h-14">
      
         <div className="w-1/4">
           <Logo />
@@ -47,7 +47,7 @@ const GuestNavBar = () => {
             <NavBars word="Reservation" to={"/"}/>
             <NavBars word="Testimonials" to={"/Review"} />
             <NavBars word="About Us" to={"/"}/>
-            <div onClick={toggleCartDetail} className="relative px-2">
+            <div onClick={toggleCartDetail} className=" underline-hover relative px-2">
   <div className="hover:cursor-pointer">
     <i className="fas fa-shopping-cart text-black text-sm sm:text-base lg:text-xl"></i>
     <div className="absolute -top-4 -right-3 bg-red text-white rounded-full text-xs h-4 w-4 flex items-center justify-center p-3">
@@ -55,25 +55,43 @@ const GuestNavBar = () => {
     </div>
   </div>
 </div>
-            <Link to="/OwnerDashboard"><li className="p-1 -m-1 border-2 rounded-lg border-red">LogIn</li></Link>
+            <Link to="/OwnerDashboard"><li className="underline-hover p-1 -m-1  rounded-lg ">LogIn</li></Link>
           </ul>
         </div>
 
       </div>
 
-      {/* Dropdown Menu for Small Screens */}
+     
       {menuOpen && (
-        <div className="w-full md:hidden">
-          <ul className="flex flex-col items-center bg-white border-t">
-            <NavBars word="Hello" />
-            <NavBars word="Menu" />
-            <NavBars word="Reservation" />
-            <NavBars word="Testimonials" />
-            <NavBars word="About Us" />
-            <li className="p-2">Login</li>
-          </ul>
+  <div className="flex flex-col w-full justify-end md:hidden">
+    <ul className="flex w-1/3 flex-col py-3 gap-3 rounded-b-lg justify-between bg-white text-center border-t ml-auto">
+      <NavBars word="Home" to={'/'} />
+      <NavBars word="Menu" to={"/Menu"} />
+      <NavBars word="Reservation" to={"/"} />
+      <NavBars word="Testimonials" to={"/Review"} />
+      <NavBars word="About Us" to={"/"} />
+
+      {/* Cart Icon with Number */}
+      <div onClick={toggleCartDetail} className="relative underline-hover px-2">
+        <div className="hover:cursor-pointer relative inline-block">
+          <i className="fas fa-shopping-cart text-black text-sm sm:text-base lg:text-xl"></i>
+          {/* Cart number positioned correctly with the cart icon */}
+          <div className="absolute -top-2 -right-2 bg-red text-white rounded-full text-xs h-4 w-4 flex items-center justify-center">
+            {totalQuantity}
+          </div>
         </div>
-      )}
+      </div>
+
+      {/* Centered Login Button */}
+      <Link to="/OwnerDashboard">
+        <li className="p-1 w-auto mx-auto underline-hover rounded-lg  text-center">
+          LogIn
+        </li>
+      </Link>
+    </ul>
+  </div>
+)}
+
 
 {isCartDetailVisible && <CartDetail onClose={toggleCartDetail} />}
     </div>

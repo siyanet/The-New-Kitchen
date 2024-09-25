@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import axios from 'axios';
-import InputField from '../Components/InputField';
+
 
 const AddCategoryForm = () => {
   const [name, setName] = useState('');
@@ -18,11 +18,13 @@ const AddCategoryForm = () => {
     }
 
     // FormData to handle image file uploads
+    console.log(name);
+    console.log(image)
     const formData = new FormData();
-    formData.append('category_name', name);
-    formData.append('category_image', image);
+    formData.append('name', name);
+    formData.append('image', image);
     formData.append('status', 'active');
-    console.log(formData); // Set status to active
+    console.log(...formData); // Set status to active
 
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/categories', formData, {
@@ -35,7 +37,8 @@ const AddCategoryForm = () => {
       setName('');
       setImage('');
     } catch (err) {
-      setError('Error adding category');
+      const errorMsg = err.response?.data?.message || err.message || 'An error occurred';
+      setError(errorMsg);
       setSuccess('');
     }
   };
@@ -52,18 +55,18 @@ const AddCategoryForm = () => {
       <h2 className="text-lg font-semibold text-center mb-4">Add New Category</h2>
       
       {/* Name Input Field */}
-      <InputField
+      <input
         placeholder="Category Name"
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        error={error && !name ? 'Category name is required' : ''}
+       
       />
 
       {/* Image Input Field */}
       <div className="mt-4">
         <label className="block text-sm font-medium text-gray-700">Category Image</label>
-        <InputField
+        <input
           type="file"
           onChange={handleImageChange}
           className="mt-2 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-black file:text-white hover:file:bg-gray-700"

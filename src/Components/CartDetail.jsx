@@ -10,9 +10,9 @@ const CartDetail = ({onClose}) => {
     const totalPrice = cartItems.reduce((total, item) => total + item.selectedPortion.price * item.quantity, 0); // Calculate total price
     const dispatch = useDispatch();
     const handleOrderPlacement = () => {
-      const user_id = 2; // Replace with actual user ID
+      const user_id = 4; // Replace with actual user ID
       const staff_id = 1; // Replace with actual staff ID
-      const table_id = 2; // Replace with actual table ID
+      const table_id = 1; // Replace with actual table ID
       console.log(cartItems)
       // Constructing the order object
       const orderData = {

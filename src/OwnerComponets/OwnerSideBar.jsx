@@ -38,7 +38,7 @@ const OwnerSideBar = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/order" className="flex items-center space-x-2">
+                <Link to="/Order" className="flex items-center space-x-2">
                   <i className="fas fa-shopping-cart"></i> {/* Order Icon */}
                 
                 </Link>

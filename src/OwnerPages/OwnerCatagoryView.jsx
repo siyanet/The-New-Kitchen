@@ -28,7 +28,7 @@ const OwnerCatagoryView = () => {
     <div>
          <OwnerNavBar/>
          <OwnerSideBar/>
-         <div className=''>
+         <div className='pl-28 pr-20'>
             <div className="flex justify-between w-full"> <h1>Categories</h1>
             <div className='rounded-full p-3 bg-black'>
             <Link to="/AddCategoryForm">
@@ -41,7 +41,7 @@ const OwnerCatagoryView = () => {
            
        
          
-         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+         <div className="grid grid-cols-1 md:grid-cols-4  gap-10">
       {category.map((item) => (
         <CategoryCard key={item.category_id} item={item} />
       ))}

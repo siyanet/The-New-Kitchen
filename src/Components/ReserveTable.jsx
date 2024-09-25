@@ -95,13 +95,14 @@ const ReserveTable = () => {
        <div className="rounded-lg p-4 w-full bg-[url('/Reservebg.png')] bg-cover bg-right lg:bg-center">
        
        <div className='flex'>
-        <div className="flex flex-col w-1/3 ">
+        <div className="flex flex-col w-full ">
         <div className=' text-center font-fredoka font-normal text-xl md:text-3xl text-white'>Reserve </div>
         <div className="text-center">
            <p className=' text-center font-fredoka font-normal text-xl md:text-3xl border-b-4  border-yellow inline-block   text-white'>A TABLE </p>
         </div>
        
         <p className="text-center font-nunito font-normal text-xs md:text-sm pt-2 text-white">Discover Our New Menu!</p>
+        <p className="text-center font-nunito font-normal text-xs md:text-sm pt-2 text-white">coming sooon feature ...</p>
         </div>
         
         <div className='grid grid-rows-5 grid-cols-1'>

@@ -14,6 +14,7 @@ import OwnerDashboard from './OwnerPages/OwnerDashboard.jsx';
 import OwnerMenuView from './OwnerPages/OwnerMenuView.jsx';
 import OwnerCatagoryView from './OwnerPages/OwnerCatagoryView.jsx';
 import AddCategoryForm from './OwnerComponets/AddCatagoryForm.jsx';
+import OrdersTable from './OwnerComponets/orderTable.jsx';
 
 
 const router = createBrowserRouter([
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
    {
     path: "/AddCategoryForm",
     element: <AddCategoryForm/>
+   },
+   {
+    path: "/Order",
+    element: <OrdersTable/>
    }
  
 ])

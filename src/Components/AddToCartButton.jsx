@@ -3,7 +3,7 @@
 import { useState } from "react";
 import MenuDetail from './MenuDetail';
 import PropTypes from 'prop-types';
-const AddToCartButton = ({item}) => {
+const AddToCartButton = ({item,recommended}) => {
  
  
   const [isDetailVisible, setDetailVisible] = useState(false);
@@ -20,8 +20,16 @@ const AddToCartButton = ({item}) => {
   };
   return (
     <>
-    <div onClick={toggleDetailView} className="hover:cursor-pointer group-hover:bg-white rounded-full bg-gray-300 p-1 sm:p-3 md:p-3">
-        <i className="fas fa-cart-plus text-black text-sm sm:text-base lg:text-lg"></i>
+    <div onClick={toggleDetailView} className="hover:cursor-pointer ">
+    {recommended ? (
+          <i className="fas fa-cart-plus text-black text-lg"></i> // Larger icon for discounted items
+        ) : (
+          <div className="group-hover:bg-white rounded-full bg-gray-300 p-1 sm:p-3 md:p-3">
+      <i className="fas fa-cart-plus text-black text-sm sm:text-base lg:text-lg"></i>
+      </div> // Normal icon size for non-discounted items
+        )}
+      
+        
 
     </div>
 
@@ -49,6 +57,7 @@ AddToCartButton.propTypes = {
     }),
     selectedExtras: PropTypes.arrayOf(PropTypes.string),
   }),
+  recommended: PropTypes.string
 };
 
 export default AddToCartButton;

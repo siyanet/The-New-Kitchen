@@ -11,7 +11,7 @@ const MenuCard = ({item}) => {
    
   return (
     <div className={` flex h-full w-full max-h-48  parent group  `}>
-      <img src={item.image} className='w-1/2 rounded-tl-xl rounded-bl-xl  object-fit '></img>
+    <img src={`http://127.0.0.1:8000/storage/${item.image}`} className='w-1/2 rounded-tl-xl rounded-bl-xl  object-fit '></img>
       <div className=' w-1/2  bg-white border-t-2 border-b-2 border-r-2 border-gray-100 group-hover:border-red  shadow-lg   rounded-tr-xl rounded-br-xl group-hover:bg-red   '>
         
         
