@@ -40,7 +40,7 @@ import PropTypes from 'prop-types';
 // export default CategoryCard;
 const CategoryCard = ({ item }) => {
   return (
-    <div className='w-full h-full flex flex-col'>
+    <div className='w-full h-full flex flex-col rounded-t-lg bg-white shadow-md'>
       {/* Category Image */}
       <div className='rounded-t-md'>
         <img
@@ -51,16 +51,16 @@ const CategoryCard = ({ item }) => {
       </div>
 
       {/* Card Content */}
-      <div className="flex flex-col justify-between bg-white shadow-lg rounded-b-md p-4 flex-grow">
+      <div className="flex flex-col justify-between bg-white shadow-lg rounded-b-lg p-4 flex-grow">
         
         {/* Menu Count */}
         <div className="text-right">
-          <p className="text-sm text-gray-500">{item.menu_count} items</p>
+          <p className="text-sm text-red font-nunito font-extrabold ">{item.menu_count} items</p>
         </div>
 
         {/* Category Name and Action Icons */}
         <div className="flex justify-between items-center mt-2">
-          <p className="text-lg font-semibold text-black">{item.category_name}</p>
+          <p className="text-lg font-bold text-black font-nunito">{item.category_name}</p>
           
           {/* Edit and Delete Icons */}
           <div className="flex space-x-2">

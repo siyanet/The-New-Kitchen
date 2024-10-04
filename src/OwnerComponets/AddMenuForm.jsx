@@ -3,8 +3,9 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchCategories } from '../Redux/CategorySlice';
 import { useEffect, useState } from 'react';
+import { fetchMenus } from '../Redux/MenuSlice';
 
-const AddMenuForm = () => {
+const AddMenuForm = ({onClick}) => {
   const dispatch = useDispatch();
   const { category, loading, error } = useSelector((state) => state.category);
 
@@ -82,6 +83,8 @@ const AddMenuForm = () => {
         { name: 'Normal', price: 0 },
         { name: 'Large', price: 0 },
       ]);
+      dispatch(fetchMenus());
+      onClick();
     } catch (err) {
         setFormError('Failed to add the menu: ' + err.response.data.message);
       setSuccessMessage('');

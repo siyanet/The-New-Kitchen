@@ -4,13 +4,14 @@ import { useSelector,useDispatch } from 'react-redux';
 import CartCard from './CartCard';
 import RedButton from './RedButton';
 import { placeOrder } from '../Redux/orderSlice';
+import { clearCart } from '../Redux/cartSlice';
 const CartDetail = ({onClose}) => { 
     const cartItems = useSelector((state) => state.cart.cartItems); // Get cart items from Redux store
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0); // Calculate total items
     const totalPrice = cartItems.reduce((total, item) => total + item.selectedPortion.price * item.quantity, 0); // Calculate total price
     const dispatch = useDispatch();
     const handleOrderPlacement = () => {
-      const user_id = 4; // Replace with actual user ID
+      const user_id = 2; // Replace with actual user ID
       const staff_id = 1; // Replace with actual staff ID
       const table_id = 1; // Replace with actual table ID
       console.log(cartItems)
@@ -33,6 +34,10 @@ const CartDetail = ({onClose}) => {
 
       // Dispatch the order placement action
       dispatch(placeOrder(orderData));
+      dispatch(clearCart());
+      
+
+
 
   };
 
