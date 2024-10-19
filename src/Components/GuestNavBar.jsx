@@ -7,16 +7,22 @@ import { useSelector } from "react-redux";
 import CartDetail from "./CartDetail";
 
 const GuestNavBar = () => {
+  console.log("nav");
   const [menuOpen, setMenuOpen] = useState(false);
   const [isCartDetailVisible,setCartDetailVisible] = useState(false);
   const toggleCartDetail = () => {
     setCartDetailVisible(!isCartDetailVisible);
   };
-  const cartItems = useSelector((state) => state.cart.cartItems);
-  const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+
+
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+  const cartItems = useSelector((state) => state.cart.cartItems);
+  const {user,isAuthenticated} = useSelector((state) => state.user);
+  const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+console.log("user");
+console.log(user);
 
   return (
     
@@ -55,7 +61,31 @@ const GuestNavBar = () => {
     </div>
   </div>
 </div>
-            <Link to="/OwnerDashboard"><li className="underline-hover p-1 -m-1  rounded-lg ">LogIn</li></Link>
+{isAuthenticated ?(
+  <div className="flex items-center">
+  
+  <div className="bg-green-500 text-white rounded-full h-8 w-8 flex items-center justify-center font-fredoka ">
+    {user?.data.name.charAt(0).toUpperCase()}
+  
+    
+  </div>
+  <span className="ml-2">{user.name}</span>
+</div>
+): 
+(
+  <Link to="/AuthPage"><li className="underline-hover p-1 -m-1  rounded-lg ">LogIn</li></Link>
+
+
+
+)}
+
+
+
+
+           
+         
+         
+         
           </ul>
         </div>
 
@@ -83,11 +113,33 @@ const GuestNavBar = () => {
       </div>
 
       {/* Centered Login Button */}
-      <Link to="/OwnerDashboard">
+      {isAuthenticated ?(
+  <div className="flex items-center justify-center">
+  
+  <div className="bg-green-500 text-white rounded-full h-8 w-8 flex items-center justify-center  ">
+    {user?.data.name.charAt(0).toUpperCase()}
+  
+    
+  </div>
+  <span className="ml-2">{user.name}</span>
+</div>
+): 
+(
+  // <Link to="/AuthPage"><li className="underline-hover p-1 -m-1  rounded-lg ">LogIn</li></Link>
+
+  <Link to="/AuthPage">
         <li className="p-1 w-auto mx-auto underline-hover rounded-lg  text-center">
           LogIn
         </li>
       </Link>
+
+
+
+)}
+
+
+
+      
     </ul>
   </div>
 )}

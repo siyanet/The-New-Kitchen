@@ -15,6 +15,8 @@ import OwnerMenuView from './OwnerPages/OwnerMenuView.jsx';
 import OwnerCatagoryView from './OwnerPages/OwnerCatagoryView.jsx';
 import AddCategoryForm from './OwnerComponets/AddCatagoryForm.jsx';
 import OrdersTable from './OwnerComponets/orderTable.jsx';
+import AuthPage from './pages/RegisterAndLoginPage.jsx';
+import ProtectedRoute from './Components/ProtectedRoute.jsx';
 
 
 const router = createBrowserRouter([
@@ -36,23 +38,37 @@ const router = createBrowserRouter([
    },
    {
     path: "/OwnerDashboard",
-    element: <OwnerDashboard/>
+   
+    element: 
+    <ProtectedRoute>  <OwnerDashboard/> </ProtectedRoute>
    },
    {
     path: "/OwnerMenuView",
-    element: <OwnerMenuView/>
+    element:
+    <ProtectedRoute>   <OwnerMenuView/>  </ProtectedRoute>
    },
    {
+    
     path: "/OwnerCategoryView",
-    element: <OwnerCatagoryView/>
+    element: 
+    <ProtectedRoute> <OwnerCatagoryView/> </ProtectedRoute>
    },
    {
     path: "/AddCategoryForm",
-    element: <AddCategoryForm/>
+    element: 
+    <ProtectedRoute> 
+      <AddCategoryForm/>
+    </ProtectedRoute>
    },
    {
     path: "/Order",
-    element: <OrdersTable/>
+    
+    element:
+    <ProtectedRoute> <OrdersTable/> </ProtectedRoute>
+   },
+   {
+    path: "/AuthPage",
+    element: <AuthPage/>
    }
  
 ])

@@ -7,6 +7,7 @@ import orderReducer from "./orderSlice";
 import categoryReducer from "./CategorySlice";
 import discountReducer from "./DiscountSlice";
 import orderDetailReducer from "./orderDetailSlice";
+import userReducer from "./UserSlice";
 
 
 const store = configureStore({
@@ -19,6 +20,8 @@ const store = configureStore({
         category: categoryReducer,
         discount: discountReducer,
         orders: orderDetailReducer,
+        user: userReducer,
+        
     },
 });
 export default store;
