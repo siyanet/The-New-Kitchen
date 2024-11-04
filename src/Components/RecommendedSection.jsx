@@ -56,11 +56,11 @@ if (status === 'loading') return <div>Loading...</div>;
 if (status === 'failed') return <div>Error: {error}</div>;
   return (
     
-       <div className="flex w-full h-auto mt-20 ">
+       <div className="flex w-full min-h[1000px] mt-20 ">
          <img src = "/Recommendedimg.png" className="w-10 md:w-12 lg:w-14 min-h-[800px]"></img>
-         <div className=" w-full">
+         <div className=" w-full h-full">
             <p className="text-center font-nunito font-extrabold text-lg pb-7 text-black z-50">Recommended</p>
-            <div className='grid grid-cols-2 justify-center md:grid-cols-5 gap-y-16 gap-4 pr-3'>
+            <div className='grid grid-cols-2 w-full h-full justify-center md:grid-cols-5 gap-y-16 gap-4 pr-3'>
         {topRatedMenus.map((menu) => (
             <RecommendedCard key={menu.menu_id} item={menu}/>
         ))} 

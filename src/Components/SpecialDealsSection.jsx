@@ -8,71 +8,6 @@ import { useEffect } from "react";
 import { fetchDiscountedItems } from "../Redux/DiscountSlice";
 
 const SpecialDealsSection = () => {
-  // const Menu = [
-  //   {
-  //     menu_id: 1,
-  //     imgsrc: "/Menuimg.png",
-  //     name: "nunija recipe",
-  //     rating: 3,
-  //     price: 18.00,
-  //     disprice: 10.00,
-  //     peoplenum: 3,
-  //   },
-  //   {
-  //     menu_id: 2,
-  //     imgsrc: "/Menuimg.png",
-  //     name: "nunija recipe",
-  //     rating: 2,
-  //     price: 18.00,
-  //     disprice: 10.00,
-  //     peoplenum: 2,
-  //   },
-  //   {
-  //     menu_id: 3,
-  //     imgsrc: "/Menuimg.png",
-  //     name: "nunija recipe",
-  //     rating: 3,
-  //     price: 18.00,
-  //     disprice: 10.00,
-  //     peoplenum: 3,
-  //   },
-  //   {
-  //     menu_id: 4,
-  //     imgsrc: "/Menuimg.png",
-  //     name: "nunija recipe",
-  //     rating: 3,
-  //     price: 18.00,
-  //     disprice: 10.00,
-  //     peoplenum: 3,
-  //   },
-  //   {
-  //     menu_id: 5,
-  //     imgsrc: "/Menuimg.png",
-  //     name: "nunija recipe",
-  //     rating: 3,
-  //     price: 18.00,
-  //     disprice: 10.00,
-  //     peoplenum: 3,
-  //   },
-  //   {
-  //     menu_id: 6,
-  //     imgsrc: "/Menuimg.png",
-  //     name: "nunija recipe",
-  //     rating: 3,
-  //     price: 18.00,
-  //     disprice: 10.00,
-  //     peoplenum: 3,
-  //   },
-  //   {
-  //     menu_id: 7,
-  //     imgsrc: "/Menuimg.png",
-  //     name: "nunija recipe",
-  //     rating: 3,
-  //     price: 18.00,
-  //     disprice: 10.00,
-  //     peoplenum: 3,
-  //   },
-  // ];
   const dispatch = useDispatch();
   
   useEffect(() => {
@@ -86,9 +21,6 @@ const SpecialDealsSection = () => {
   if (error) return <div>Error: {error}</div>;
   const itemsToDisplay = Array.isArray(items) ? items.slice(0, 7) : [];
 
-console.log("items to display");
-console.log(items)
-console.log(itemsToDisplay)
   return (
     <div className="pt-4 pl-3  pr-3 md:pr-6 md:pl-6  mt-20 w-full h-1/5 ">
       <h1 className="font-extrabold font-nunito text-xl md:text-lg text-center mb-7">Special Deals</h1>

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import AddToCartButton from "./AddToCartButton";
 const RecommendedCard = ({item}) => {
   return (
-    <div className="relative z-10">
+    <div className="relative z-10 w-full h-full">
        <div className="relative w-full h-full rounded-md  bg-white flex flex-col justify-between">
        <div className="relative h-full w-full">
       {/* Base Image */}

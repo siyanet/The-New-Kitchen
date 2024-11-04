@@ -1,10 +1,11 @@
 // src/features/ordersDetailSlice.js
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import AxiosInstance from '../Components/AxiosInstance';
 
 // Async thunk to fetch orders (You may replace the URL with your actual endpoint)
 export const fetchOrdersDetails = createAsyncThunk('ordersDetail/fetchOrdersDetails', async () => {
-    const response = await fetch('http://127.0.0.1:8000/api/orders/details'); // Update with your actual endpoint
+    const response = await AxiosInstance("/orders");// Update with your actual endpoint
     const data = await response.json();
     return data;
 });

@@ -8,30 +8,32 @@ import CatagoriesSection from '../Components/CatagoriesSection';
 import ImageSection from '../Components/ImageSection';
 import ReserveTable from '../Components/ReserveTable';
 import TestimonialsSection from '../Components/TestimonialsSection';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { fetchUser } from '../Redux/UserSlice';
+import PizzaHutMap from '../Components/PizzaHutMap';
+import Footer from '../Components/footer';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { useEffect } from 'react';
+// import { fetchUser } from '../Redux/UserSlice';
 
 const LandingPage = () => {
-  const dispatch = useDispatch(); 
+  // const dispatch = useDispatch(); 
   
-  const {status} = useSelector((state) => state.user);
-  useEffect(() =>{
-    console.log("user fetch begin");
+  // const {status} = useSelector((state) => state.user);
+  // useEffect(() =>{
+  //   console.log("user fetch begin");
 
-    const token = localStorage.getItem('pizzaHutToken');
+  //   const token = localStorage.getItem('pizzaHutToken');
     
-    if (token) {
-      console.log("there is token");
-      dispatch(fetchUser());
-    }
+  //   if (token) {
+  //     console.log("there is token");
+  //     dispatch(fetchUser());
+  //   }
 
 
 
-  }, [dispatch]);
-  if(status == "loading"){
-    return <p> Loading user data ...</p>;
-  }
+  // }, [dispatch]);
+  // if(status == "loading"){
+  //   return <p> Loading user data ...</p>;
+  // }
   return (
     <div className='w-full h-full'>
          <GuestNavBar />
@@ -44,6 +46,8 @@ const LandingPage = () => {
  <ImageSection/>
  <ReserveTable/>
  <TestimonialsSection/>
+ <PizzaHutMap/>
+ <Footer/>
     </div>
   );
 }

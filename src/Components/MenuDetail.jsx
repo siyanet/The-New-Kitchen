@@ -38,8 +38,7 @@ const { item, status,error } = useSelector((state) => state.menuDetail);
     }
     setSelectedExtras(updatedExtras);
   };
-  console.log("extras");
-  console.log(selectedExtras);
+
 
 
   const handleButtonClick = () => {

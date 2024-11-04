@@ -1,8 +1,9 @@
 // orderSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { clearCart } from './cartSlice';
-import { useDispatch } from 'react-redux';
+// import axios from 'axios';
+// import { clearCart } from './cartSlice';
+// import { useDispatch } from 'react-redux';
+import AxiosInstance from '../Components/AxiosInstance';
 
 
 
@@ -14,7 +15,7 @@ const initialState = {
 
 // Async thunk for placing an order
 export const placeOrder = createAsyncThunk('order/placeOrder', async (orderData) => {
-  const response = await axios.post('http://127.0.0.1:8000/api/orders', orderData); // Adjust the URL accordingly
+  const response = await AxiosInstance.post('/orders', orderData); // Adjust the URL accordingly
   
   return response.data; // This will be the resolved value
 });

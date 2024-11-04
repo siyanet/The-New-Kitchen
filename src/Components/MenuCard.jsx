@@ -5,8 +5,7 @@ import ReviewStar from './ReviewStar';
 import AddToCartButton from './AddToCartButton';
 
 const MenuCard = ({item}) => {
-  console.log(item)
-
+ 
   
    
   return (
@@ -17,14 +16,14 @@ const MenuCard = ({item}) => {
       <div className=' w-1/2  bg-white border-t-2 border-b-2 border-r-2 border-gray-100 group-hover:border-red  shadow-lg   rounded-tr-xl rounded-br-xl group-hover:bg-red   '>
         
         
-        <div className=' '> 
+        <div className='p-3 flex flex-col gap-3 '> 
            <ReviewStar rating={item.average_rate}/>
         <p className=' group-hover:text-white font-semibold text-sm text-black '>{item.menu_name}</p>
-        <div className='flex  '>
+        <div className='flex gap-2'>
           {item.discount_percentage ? ( <>
-            <p className="text-red group-hover:text-white font-nunito font-extrabold text-base">{item.discount_normal_Portion_price}</p>
-            <p className ="line-through font-nunito  font-extrabold text-base  text-gray-100">{item.normal_portion_price}</p></> ):
-          <p className="text-red group-hover:text-white font-nunito font-extrabold text-base">{item.normal_portion_price}</p>
+            <p className="text-red group-hover:text-white font-nunito font-extrabold text-base">{item.discounted_normal__portion_price} ETB</p>
+            <p className ="line-through font-nunito  font-extrabold text-base  text-gray-100">{item.normal_portion_price}.00 ETB</p></> ):
+          <p className="text-red group-hover:text-white font-nunito font-extrabold text-base">{item.normal_portion_price}.00 ETB</p>
            }
          
            </div>

@@ -6,17 +6,17 @@ const MenuCardCol = ({item}) => {
   return (
     
     <div className=' w-full h-full'>
-         <img src={`http://127.0.0.1:8000/storage/${item.image}`} className=' w-full rounded-tl-xl rounded-tr-xl  object-fit '></img>
+         <img src={item.image} className=' w-full rounded-tl-xl rounded-tr-xl  object-fit '></img>
          <div className='bg-white border-l-2 border-b-2 border-r-2 border-gray-100 group-hover:border-red p-4 shadow-lg transition-all duration-600 ease-in-out rounded-br-xl rounded-bl-xl group-hover:bg-red pt-6 pl-1  pb-3 '>
-        <div className=''>  <ReviewStar rating={item.average_rate}  />
+        <div className='p-4'>  <ReviewStar rating={item.average_rate}  />
         <p className='pt-2 group-hover:text-white font-semibold text-base text-black '>{item.menu_name}</p>
 
       
-        <div className='flex  pt-2 pb-2'>
+        <div className='flex  pt-2 pb-2 gap-4'>
         {item.discount_percentage ? ( <>
-            <p className="text-red group-hover:text-white font-nunito font-extrabold text-base">{item.discount_normal_Portion_price}</p>
-            <p className ="line-through font-nunito  font-extrabold text-base  text-gray-100">{item.normal_portion_price}</p></> ):
-          <p className="text-red group-hover:text-white font-nunito font-extrabold text-base">{item.normal_portion_price}</p>
+            <p className="text-red group-hover:text-white font-nunito font-extrabold text-base">{item.discounted_normal__portion_price} ETB</p>
+            <p className ="line-through font-nunito  font-extrabold text-base  text-gray-100">{item.normal_portion_price}.00 ETB</p></> ):
+          <p className="text-red group-hover:text-white font-nunito font-extrabold text-base">{item.normal_portion_price}.00 ETB</p>
            }
            </div>
         </div>

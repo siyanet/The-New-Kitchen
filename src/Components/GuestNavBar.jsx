@@ -2,18 +2,26 @@
 import { useState } from "react";
 import Logo from "./logo";
 import NavBars from "./NavBars";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import CartDetail from "./CartDetail";
+import { logout } from "../Redux/UserSlice";
 
 const GuestNavBar = () => {
-  console.log("nav");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isCartDetailVisible,setCartDetailVisible] = useState(false);
   const toggleCartDetail = () => {
     setCartDetailVisible(!isCartDetailVisible);
   };
-
+const handleLogout = () => {
+  dispatch(logout());
+  navigate("/");
+  
+}
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -21,8 +29,7 @@ const GuestNavBar = () => {
   const cartItems = useSelector((state) => state.cart.cartItems);
   const {user,isAuthenticated} = useSelector((state) => state.user);
   const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
-console.log("user");
-console.log(user);
+
 
   return (
     
@@ -61,8 +68,10 @@ console.log(user);
     </div>
   </div>
 </div>
-{isAuthenticated ?(
+{/* {isAuthenticated ?(
+  
   <div className="flex items-center">
+    
   
   <div className="bg-green-500 text-white rounded-full h-8 w-8 flex items-center justify-center font-fredoka ">
     {user?.data.name.charAt(0).toUpperCase()}
@@ -70,6 +79,23 @@ console.log(user);
     
   </div>
   <span className="ml-2">{user.name}</span>
+
+  {isDropdownOpen && (
+            <div className="absolute top-10 right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+              <Link to="/CustomerOrderView" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                Orders
+              </Link>
+              <button
+                onClick={() => {
+                  handleLogout();
+                  setIsDropdownOpen(false);
+                }}
+                className="w-full text-left block px-4 py-2 text-gray-700 hover:bg-gray-100"
+              >
+                Logout
+              </button>
+            </div>
+          )}
 </div>
 ): 
 (
@@ -77,7 +103,43 @@ console.log(user);
 
 
 
-)}
+)} */}
+
+{isAuthenticated ? (
+        <div className="relative">
+          <div className="flex  items-center space-x-2 " >
+            {/* User's Initial in a Green Circle */}
+            <div className="bg-green-500 text-white rounded-full h-8 w-8 flex items-center justify-center font-fredoka">
+              {user?.data.name.charAt(0).toUpperCase()}
+            </div>
+            {/* User's Name */}
+            {/* <span className="ml-2">{user?.data.name}</span> */}
+            <span className="cursor-pointer" onClick={toggleDropdown}> {isDropdownOpen? <i className="fas fa-caret-up"/> : <i className="fas fa-caret-down"/>}</span>
+          </div>
+
+          {/* Dropdown Menu */}
+          {isDropdownOpen && (
+            <div className="absolute top-10 right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-50 font-epilogue">
+              <Link to="/CustomerOrderView" className="block px-4 py-2 text-gray-700 hover:text-white hover:bg-red">
+                Orders
+              </Link>
+              <button
+                onClick={() => {
+                  handleLogout();
+                  setIsDropdownOpen(false);
+                }}
+                className="w-full text-left block px-4 py-2 text-gray-700 hover:text-white hover:bg-red font-epilogue"
+              >
+                Logout
+              </button>
+            </div>
+          )}
+        </div>
+      ) : (
+        <Link to="/AuthPage">
+          <li className="underline-hover p-1 -m-1 rounded-lg">Log In</li>
+        </Link>
+      )}
 
 
 
@@ -111,12 +173,14 @@ console.log(user);
           </div>
         </div>
       </div>
+      <NavBars word = "Orders" to={"/CustomerOrderView"} />
 
       {/* Centered Login Button */}
       {isAuthenticated ?(
-  <div className="flex items-center justify-center">
+  <div className="flex-col  items-center justify-center">
+    <p className="" onClick={handleLogout} >logout</p>
   
-  <div className="bg-green-500 text-white rounded-full h-8 w-8 flex items-center justify-center  ">
+  <div className="bg-green-500  text-white rounded-full h-8 w-8 flex items-center justify-center  ">
     {user?.data.name.charAt(0).toUpperCase()}
   
     

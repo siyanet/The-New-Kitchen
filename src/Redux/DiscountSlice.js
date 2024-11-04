@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import AxiosInstance from '../Components/AxiosInstance';
 
 // Async action to fetch the discounts from the backend
 export const fetchDiscountedItems = createAsyncThunk(
   'discount/fetchDiscountedItems',
   async () => {
-    const response = await axios.get('http://127.0.0.1:8000/api/discounts'); // Replace with your actual API endpoint
+    const response = await AxiosInstance.get('discounts'); // Replace with your actual API endpoint
     return response.data;  // The array of discount items
   }
 );

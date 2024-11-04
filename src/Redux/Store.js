@@ -6,9 +6,15 @@ import extraReducer from "./ExtraSlice";
 import orderReducer from "./orderSlice";
 import categoryReducer from "./CategorySlice";
 import discountReducer from "./DiscountSlice";
-import orderDetailReducer from "./orderDetailSlice";
-import userReducer from "./UserSlice";
+import userOrdersReducer from "./orderDetailSlice";
 
+import userReducer from "./UserSlice";
+import locationReducer from "./LocationSlice";
+import tableReducer from "./tableSlice";
+import staffReducer from "./staffSlice";
+import reviewsReducer from "./ReviewSlice";
+import chefQueueReducer from "./chefOrderSllice";
+import staffDetailReducer from "./staffDetailSlice";
 
 const store = configureStore({
     reducer:{
@@ -19,8 +25,14 @@ const store = configureStore({
         order: orderReducer,
         category: categoryReducer,
         discount: discountReducer,
-        orders: orderDetailReducer,
+        orders: userOrdersReducer,
         user: userReducer,
+        locations:locationReducer,
+        tables:tableReducer,
+        staff: staffReducer,
+        reviews: reviewsReducer,
+        chefQueue: chefQueueReducer,
+        staffDetail: staffDetailReducer,
         
     },
 });

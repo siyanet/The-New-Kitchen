@@ -11,7 +11,7 @@ const OwnerSideBar = () => {
    
         <div className="flex ">
           {/* Sidebar */}
-          <div className={`fixed justify-between left-0 h-screen  bg-red text-white p-6 space-y-6 ${isOpen ? "block" : "hidden"} md:block`}>
+          <div className={`fixed left-0 justify-between h-screen  bg-red text-white p-6 space-y-6 ${isOpen ? "block " : " hidden"} md:block`}>
             <ul className="space-y-10 text-4xl">
               <li>
                 <Link to="/" className="flex items-center space-x-2">
@@ -40,6 +40,26 @@ const OwnerSideBar = () => {
               <li>
                 <Link to="/Order" className="flex items-center space-x-2">
                   <i className="fas fa-shopping-cart"></i> {/* Order Icon */}
+                
+                </Link>
+              </li>
+
+              <li>
+                <Link to="/staff" className="flex items-center space-x-2">
+                  <i className="fas fa-users"></i> {/* Order Icon */}
+                
+                </Link>
+              </li>
+              <li>
+                <Link to="/discount" className="flex items-center space-x-2">
+                  <i className="fas fa-percent"></i> {/* Order Icon */}
+                
+                </Link>
+              </li>
+
+              <li>
+                <Link to="/Reviews" className="flex items-center space-x-2">
+                  <i className="fas fa-thumbs-up"></i> {/* Order Icon */}
                 
                 </Link>
               </li>

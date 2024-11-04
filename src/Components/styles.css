@@ -26,7 +26,8 @@
     right: 0;
     width: 850px;
     height: 600px;
-    background: linear-gradient(45deg,#F3274C,#FFD40D );
+    /* background: linear-gradient(45deg,#F3274C,#FFD40D ); */
+    background-color: #F3274C;
     transform: rotate(10deg) skewY(40deg);
     /* transform: rotate(0) skewY(0); */
     transform-origin: bottom right;
@@ -97,4 +98,22 @@
 }
 .register-word-animation{
   display: none;
+}
+
+
+.toast-container {
+  z-index: 9999; /* Or any higher number */
+}
+
+@keyframes moveLeftRight {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(40px); /* Adjust as needed for desired movement range */
+  }
+}
+
+.animate-move {
+  animation: moveLeftRight 2s ease-in-out infinite;
 }

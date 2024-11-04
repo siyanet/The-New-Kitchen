@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import PhoneInput from 'react-phone-input-2'; // Import PhoneInput component
 import 'react-phone-input-2/lib/style.css';
-import MenuButton from '../Components/MenuButton';
 import RelativeButton from '../Components/RelativeButton';
 import { useNavigate } from 'react-router-dom';
+import { notify } from '../Components/notify';
 
 const AuthPage = () => {
   const [isActive,setIsActive] = useState(false);
@@ -107,21 +107,31 @@ const AuthPage = () => {
           }
         });
         const data = await response.json();
-        if (!response.ok){// parse the error response
-      throw new Error( response.message);
-        }
-        const userId = data.user_id;
+        if (response.status === 200){// parse the error response
+    
+           const userId = data.user_id;
     
     // Store userId in session storage
     sessionStorage.setItem('userId', userId);
-        alert("otp sent successfully");
-       
-        setIsOtpSent(true);
+        notify("otp Sent Successfully","success");
+        setTimeout(()=>{
+          setIsOtpSent(true);
 
+        },2200);
+       
+     
+
+        }
+        else{
+          throw new Error( response.message);
+
+        }
+       
       }
       catch (error){
-        alert(error.error);
-        alert(error.message);
+        // notify("otp sent failed please try again" +error.message,"error");
+        notify(`Failed to send OTP: ${error.message}`, "error");
+        
       }
       finally{
         setLoading(false);
@@ -147,6 +157,7 @@ const AuthPage = () => {
       try{
         const userId = parseInt(sessionStorage.getItem("userId"));
         const code = otp
+        console.log(userId,otp);
         const apiUrl = `http://127.0.0.1:8000/api/verify-otp?id=${userId}&code=${code}`;
         const response = await fetch(apiUrl, {
           method: 'POST',
@@ -165,12 +176,20 @@ const AuthPage = () => {
         alert("otp verified successfully");
         setIsOtpSent(false);
         navigate("/");
+        // await initializeUser();
+
+        // // Get the user state after initialization
+        // if (user && user?.data.role === "owner") {
+        //     navigate("/owner-dashboard"); // Navigate to Owner Dashboard
+        // } else {
+        //     navigate("/"); // Navigate to the default landing page or homepage
+        // }
         
         
 
       }
       catch (error){
-        alert(error.message);
+        notify(`error verifying otp: ${error.message}`,"error");
       }
       finally{
         setLoading(false);
@@ -214,12 +233,18 @@ const AuthPage = () => {
       }
 
      
+    
+     notify("Registered Successfully","success");
+     setTimeout(()=> {
       handleActive();
-      alert('Registerd  successful!');
-    } catch (error) {
-      alert(error);
-    } finally {
       setLoading(false);
+
+     },2200);
+    } catch (error) {
+      notify("error Registering ,please try again","error");
+      setTimeout(()=>{
+        setLoading(false);
+      },2200);
     }
   };
 
@@ -229,7 +254,7 @@ const AuthPage = () => {
   return (
     <div className={`${isActive? "active": ""} flex justify-center items-center bg-amber-50 w-full h-screen`}>
     
-        <div className='w-[850px] h-[600px] overflow-hidden bg-white relative  shadow-lg '>
+        <div className='w-[850px] h-[600px]  overflow-hidden bg-white flex relative  shadow-lg '>
         <span className='triangle-bg '></span>
         <span className='triangle-bg2 '></span>
        
@@ -243,7 +268,7 @@ const AuthPage = () => {
        
        
        
-        <div className= 'flex justify-between   '>
+        <div className= 'flex justify-between   ml-10 z-30'>
           <div className='flex  flex-col gap-4 justify-center items-center '>
            <p className='font-fredoka  animation my-5 text-2xl text-center '>Login</p>
 
@@ -275,23 +300,23 @@ const AuthPage = () => {
                   onChange={handleLogPhoneChange}
                 />
                 {logPhoneError && <p className='text-red'>{logPhoneError}</p>}
-                <div className='flex justify-center animation'>
+                <div className='flex py-3 justify-center animation'>
                   <RelativeButton onClick={handleLogin} name="Login" />
                 </div>
               </div>
             ) : (
               // Show OTP input form if OTP is sent
-              <div className='animation'>
+              <div className='animation '>
                 <input
                   type='text'
                   maxLength={6}
                   placeholder='Enter OTP'
                   value={otp}
                   onChange={handleOtpChange}
-                  className='border-solid p-2 border-cyan-300 border-2'
+                  className='border-solid p-2 border-black border-2'
                 />
                 {otpError && <p className='text-red'>{otpError}</p>}
-                <div className='flex justify-center animation'>
+                <div className='flex justify-center animation my-5'>
                   <RelativeButton onClick={handleOtpSubmit} name="Submit OTP" />
                 </div>
               </div>
@@ -310,9 +335,16 @@ const AuthPage = () => {
       
       
       {!isOtpSent && (
-              <p onClick={handleActive} className='font-nunito animation font-semibold text-black text-base text-center'>
-                Don't have an account? Register
+        <div className='flex gap-2'>
+            <p  className='font-nunito animation font-semibold text-black text-base text-center'>
+                Don't have an account? 
               </p>
+              <p onClick={handleActive} className='font-nunito animation font-semibold text-red text-base text-center hover:cursor-pointer'>
+               Register
+              </p>
+
+        </div>
+            
             )}
           </div>
         </div>
@@ -323,7 +355,7 @@ const AuthPage = () => {
 
       
       
-          <div className='flex flex-row-reverse absolute justify-between w-full  z-30'>
+          <div className='flex flex-row-reverse absolute justify-between w-full  mt-48 z-20'>
           <div className='flex flex-col gap-4 justify-center  h-full'>
           <p className='font-fredoka my-5 text-2xl text-center register-animation'>Register</p>
       <input type='text' value={regName} onChange={handleNameChange} placeholder="enter your name " className='register-animation border-solid p-2 border-cyan-300 border-2'/>
@@ -337,10 +369,17 @@ const AuthPage = () => {
       />
       {regPhoneError && <p className='text-red'> {regPhoneError}</p>}</div> 
       <div className='flex justify-center register-animation'>
-     <i className='bx bxs-user'></i>
+    
       <RelativeButton onClick={handleRegister} name="Register"/>
         </div>
-        <p onClick= {handleActive} className=' register-animation font-nunito font-semibold text-black text-base text-center'>Already have an account? Login</p>
+        <div className='flex gap-2'>
+        <p  className=' register-animation font-nunito font-semibold text-black text-base text-center'>
+        Already have an account? </p>
+        <p onClick= {handleActive} className=' register-animation font-nunito font-semibold text-red text-base text-center'>
+     Login</p>
+
+        </div>
+     
       
 
           </div>
