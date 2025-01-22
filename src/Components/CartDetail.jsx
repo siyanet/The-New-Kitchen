@@ -10,7 +10,7 @@ import { notify } from './notify';
 import Confimation from './Confimation';
 import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';
-const CartDetail = ({onClose}) => { 
+const CartDetail = ({onClose,staff_id}) => { 
   const [isModalOpen, setIsModalOpen] = useState(false);
     const cartItems = useSelector((state) => state.cart.cartItems); // Get cart items from Redux store
     const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0); // Calculate total items
@@ -32,6 +32,11 @@ const CartDetail = ({onClose}) => {
               note: item.note || '', // Assuming you have notes in the cart items
           })) // Flattening extras from all cart items
       };
+      if(staff_id){
+        orderData.staff_id = staff_id;
+        orderData.table_id = 2;
+      }
+      console.log(orderData);
       try{
         await  dispatch(placeOrder(orderData));
 

@@ -5,38 +5,6 @@ import { useEffect } from "react";
 import { fetchMenus } from "../Redux/MenuSlice";
 
 const RecommendedSection = () => {
-    // const cardData = [
-    //     {
-    //       imgsrc: "/Recommended.png",
-    //       price: "$29.99",
-    //       name: "Product 1",
-    //       onClick: () => { console.log("Clicked Product 1"); }
-    //     },
-    //     {
-    //       imgsrc: "/Menuimg.png",
-    //       price: "$39.99",
-    //       name: "Product 2",
-    //       onClick: () => { console.log("Clicked Product 2"); }
-    //     },
-    //     {
-    //       imgsrc: "/Menuimg.png",
-    //       price: "$49.99",
-    //       name: "Product 3",
-    //       onClick: () => { console.log("Clicked Product 3"); }
-    //     },
-    //     {
-    //       imgsrc: "/Menuimg.png",
-    //       price: "$59.99",
-    //       name: "Product 4",
-    //       onClick: () => { console.log("Clicked Product 4"); }
-    //     },
-    //     {
-    //       imgsrc: "/Menuimg.png",
-    //       price: "$69.99",
-    //       name: "Product 5",
-    //       onClick: () => { console.log("Clicked Product 5"); }
-    //     }
-    //   ];
     const dispatch = useDispatch();
     
 
@@ -56,8 +24,8 @@ if (status === 'loading') return <div>Loading...</div>;
 if (status === 'failed') return <div>Error: {error}</div>;
   return (
     
-       <div className="flex w-full min-h[1000px] mt-20 ">
-         <img src = "/Recommendedimg.png" className="w-10 md:w-12 lg:w-14 min-h-[800px]"></img>
+       <div className="flex w-full h[500px]   mt-20 py-5 ">
+         <img src = "/Recommendedimg.png" className="w-10 md:w-12 lg:w-14 h-full"></img>
          <div className=" w-full h-full">
             <p className="text-center font-nunito font-extrabold text-lg pb-7 text-black z-50">Recommended</p>
             <div className='grid grid-cols-2 w-full h-full justify-center md:grid-cols-5 gap-y-16 gap-4 pr-3'>

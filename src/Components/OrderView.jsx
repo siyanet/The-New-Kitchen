@@ -62,7 +62,7 @@ const OrderView = ({order,role,handlePaymentClick}) => {
       {role ==="customer" && order.payment == null ?(
         <button onClick={handlePaymentClick} className="bg-red p-2 rounded-md text-white font-epilogue font-bold">Pay Now</button>
       ):
-      <p className="font-epilogue font-semibold">Payment {order.payment.status}</p>}
+      <p className="font-epilogue font-semibold">Paid</p>}
     </div>
 
 
@@ -70,7 +70,8 @@ const OrderView = ({order,role,handlePaymentClick}) => {
       
     </div>
     </div>
-  );
+// {order.payment.status}
+);
 }
 
 export default OrderView

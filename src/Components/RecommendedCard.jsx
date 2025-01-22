@@ -2,9 +2,9 @@ import PropTypes from "prop-types";
 import AddToCartButton from "./AddToCartButton";
 const RecommendedCard = ({item}) => {
   return (
-    <div className="relative z-10 w-full h-full">
+    <div className="relative z-10 w-full h-[450px]">
        <div className="relative w-full h-full rounded-md  bg-white flex flex-col justify-between">
-       <div className="relative h-full w-full">
+       <div className="relative h-3/4 w-full">
       {/* Base Image */}
       <img src= {item.image} alt={item.menu_name} className=" rounded-t-lg w-full h-full object-cover" />
 
@@ -17,13 +17,13 @@ const RecommendedCard = ({item}) => {
       <div   className="hover:cursor-pointer absolute bottom-1  lg:bottom-3 left-1/2 transform -translate-x-1/2 ">       
           <div className="w-12 h-12 border-yellow border-dashed   border-2 p-1 rounded-full flex items-center justify-center shadow-sm">
             <div className="w-10 h-10 bg-yellow rounded-full flex items-center justify-center">
-              <AddToCartButton item={item} recommended="True"/>
+              <AddToCartButton item={item} recommended="true"/>
             </div>
           </div>
                  </div>
     </div>
 
-    <div className="p-2 text-center">
+    <div className="p-2 text-center h-1/4 flex flex-col justify-center">
           <p className="text-red font-nunito font-bold text-sm">
             {item.discount_normal_Portion_price
               ? `$${item.discount_normal_Portion_price}`

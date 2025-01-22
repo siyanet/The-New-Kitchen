@@ -1,28 +1,19 @@
 
-import { useSelector } from 'react-redux'
-import { ClipLoader } from 'react-spinners';
 
 const Footer = () => {
-    const {status,category} = useSelector((state) => state.category);
-  if(status == "loading"){
-    return(
-<ClipLoader/>
-
-    );
-  }
+  
     return (
-    <div className='mt-20 border-t-2 border-black pt-1  '>
-        {/* <div className='grid  grid-rows-1 grid-cols-6 '> */}
-        <div className='flex justify-between w-full '>
-            <div className='w-1/4'>
-                <img src = "footerleft.png" className='object-fit w-full'/>
+    <div className='mt-20 border-t-2 h-[300px] border-black pt-1  '>
+        <div className='flex justify-between w-full h-full '>
+            <div className='w-1/4 h-full'>
+                <img src = "footerleft.png" className='object-fit w-full h-full'/>
             </div>
 
-            <div className='w-full '>
+            <div className='w-full h-full '>
                 <div className='flex flex-col h-full w-full justify-between'> 
                     
-                <div className='flex justify-between '>
-                    <div className='bg-red h-48 w-full mx-5 rounded-lg mt-10  flex justify-center items-center '>
+                <div className='flex justify-between  h-full '>
+                    <div className='bg-red h-[180px]  p-3 w-full mx-5 rounded-lg mt-8  py-10  flex justify-center items-center '>
                         <div className='text-white text-center w-full font-nunito text-lg font-bold '>
                         <p>Tuesday-Sunday 12:00pm-23:00pm</p>
                         <p>closed on Monday</p>
@@ -58,8 +49,8 @@ const Footer = () => {
             </div>
 
 
-        <div className='w-1/4 flex justify-end'>
-            <img src="footerleft.png"/>
+        <div className='w-1/4 flex justify-end h-full'>
+            <img src="footerleft.png" className='h-full w-full'/>
         </div>
 
         </div>
@@ -70,6 +61,5 @@ const Footer = () => {
 
 export default Footer;
 
-{/* <div className='grid row-6 col-1 '>
-    <div className=''></div>
-</div> */}
+
+

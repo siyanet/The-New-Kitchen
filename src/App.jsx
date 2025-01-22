@@ -18,7 +18,7 @@ function App() {
       } else if (user.data.role === "chef") {
         navigate('/chefHomePage');
       } else if(user.data.role === "waiter"){
-        navigate('/waiterHomePage');
+        navigate('/waiterLandingPage');
       }
     }
   }, [status, user, navigate]); // Add dependencies to useEffect

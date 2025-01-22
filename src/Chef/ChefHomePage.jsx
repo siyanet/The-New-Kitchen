@@ -30,7 +30,7 @@ const ChefHomePage = () => {
      
          {/* Orders display */}
          { chefOrders && chefOrders.length > 0 ? (
-           <div className='flex w-full h-full flex-wrap justify-between'>
+           <div className='flex w-full h-full p-5  flex-wrap md:justify-between justify-center gap-5 mr-10'>
              
              {chefOrders.map((order) => (
                <ChefOrderCard order={order} key={order.id} />

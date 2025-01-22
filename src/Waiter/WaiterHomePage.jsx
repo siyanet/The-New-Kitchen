@@ -5,6 +5,7 @@ import { fetchCategories } from "../Redux/CategorySlice";
 import CategoryCard from "../OwnerComponets/CatagoryCard";
 import MenuCard from "../Components/MenuCard";
 import CartDetail from "../Components/CartDetail";
+import { Link } from "react-router-dom";
 
 
 const WaiterHomePage = () => {
@@ -42,6 +43,7 @@ dispatch(fetchMenus());
     <div className="w-full h-full">
              <p className="text-center font-fredoka text-xl text-red">wellcome {user.name}</p>
              <div className="flex justify-end pr-8">
+             <Link className="mx-4 font-fredoka text-lg text-red" to={"/waiterOrders"}> Orders</Link>
              <div onClick={toggleCartVisible} className="  w-10 relative  px-2">
   <div className="hover:cursor-pointer relative">
     <i className="fas fa-shopping-cart text-black text-sm sm:text-base lg:text-xl"></i>
@@ -50,7 +52,9 @@ dispatch(fetchMenus());
     </div>
   </div>
 </div>
+
              </div>
+           
            
 
    
@@ -114,7 +118,7 @@ dispatch(fetchMenus());
 
 )}
 
-{isCartOpen && <CartDetail onClose={toggleCartVisible}/>}
+{isCartOpen && <CartDetail onClose={toggleCartVisible} staff_id={5}/>}
 
 
 

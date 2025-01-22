@@ -4,6 +4,8 @@ import 'react-phone-input-2/lib/style.css';
 import RelativeButton from '../Components/RelativeButton';
 import { useNavigate } from 'react-router-dom';
 import { notify } from '../Components/notify';
+import { useDispatch } from 'react-redux';
+import { fetchUser } from '../Redux/UserSlice';
 
 const AuthPage = () => {
   const [isActive,setIsActive] = useState(false);
@@ -18,6 +20,7 @@ const AuthPage = () => {
   const [otpError,setOtpError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   
   const validateName = (value)=>{
     if(!value){
@@ -173,8 +176,10 @@ const AuthPage = () => {
     
     // Store userId in session storage
     localStorage.setItem('pizzaHutToken', token);
-        alert("otp verified successfully");
+        notify("otp verified successfully","success");
         setIsOtpSent(false);
+        dispatch(fetchUser());
+        
         navigate("/");
         // await initializeUser();
 

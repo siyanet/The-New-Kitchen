@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
+import { notify } from "../Components/notify";
+import AxiosInstance from "../Components/AxiosInstance";
+import { useDispatch } from "react-redux";
+import { fetchChefQueueOrders } from "../Redux/chefOrderSllice";
 
 
 
 const ChefOrderCard = ({ order }) => {
   const [elapsedTime, setElapsedTime] = useState("");
-
+  const dispatch = useDispatch();
   const [status, setStatus] = useState(order.status);
   useEffect(() => {
     // Function to calculate the time difference
@@ -38,20 +42,16 @@ const ChefOrderCard = ({ order }) => {
 
     try {
       // Send API request to update status
-      const response = await fetch(`/api/orders/${order.id}/status`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ status: newStatus }),
-      });
+      const response = await AxiosInstance.post(`/orders/${order.id}`,{status : newStatus});
 
-      if (!response.ok) {
+      if (response.status !== 200) {
         throw new Error("Failed to update status");
       }
-      console.log("Status updated successfully");
+      notify("Status updated successfully","success");
+      dispatch(fetchChefQueueOrders());
     } catch (error) {
-      console.error("Error updating status:", error);
+      const errorMessage = error.response?.data?.message || "Error updating status";
+  notify(errorMessage, "error");
       // Optionally, revert status if API request fails
       setStatus(order.status);
     }
@@ -59,9 +59,9 @@ const ChefOrderCard = ({ order }) => {
 
   const statusBgColor = {
     confirmed: "bg-yellow",
-    inProgress : "bg-red",
     Completed: "bg-green-200",
     Cancelled: "bg-red",
+    "being prepared": "bg-red"
   };
 
 
@@ -93,10 +93,10 @@ const ChefOrderCard = ({ order }) => {
             className="border-2 border-black shadow-md  rounded-lg p-2"
             
           >
-            <option value="Pending">Pending</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Completed">Completed</option>
-            <option value="Cancelled">Cancelled</option>
+            <option value="pending">Pending</option>
+            <option value="being prepared">Being Prepared</option>
+            <option value="served">Served</option>
+            <option value="confirmed">Confirmed</option>
           </select>
           </div>
           {order.items && order.items.length > 0 ? ( // Check if items exist

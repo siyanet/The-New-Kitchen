@@ -25,8 +25,9 @@ const PaymentForm = ({order_id,onCancel}) => {
           return;
             }
             try {
-                const response = await AxiosInstance.post(`/transaction/initialize`, {
+                const response = await AxiosInstance.post(`/initialize-payment`, {
                   order_id: order_id,
+                  return_url: "http://localhost:5173/CustomerOrderView",
                   ...formState,
                 });
           

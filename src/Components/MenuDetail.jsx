@@ -104,7 +104,7 @@ if (error === 'failed') {
                 className=""
               />
                         <span className="font-nunito font-black text-base">
-                        {portion.portion}
+                        {portion.name}
                        
                        
                         <span className="text-red">-----</span>
@@ -128,7 +128,8 @@ if (error === 'failed') {
 
 
 
-{extras?  <div className="flex flex-col border-2 mb-2 border-black border-opacity-65 shadow-md w-full bg-white rounded-lg mt-4">
+{extras.length > 0 &&(
+    <div className="flex flex-col border-2 mb-2 border-black border-opacity-65 shadow-md w-full bg-white rounded-lg mt-4">
         <div className="w-full">
           <p className="font-nunito font-bold text-lg text-left border-b-2 border-black p-4">Extras</p>
           <div>
@@ -156,7 +157,7 @@ if (error === 'failed') {
             
           </div>
         </div>
-      </div> : <div></div>}
+      </div> )}
          
 
 
@@ -164,7 +165,7 @@ if (error === 'failed') {
 
 
 
-<div className="flex justify-between">
+<div className="flex justify-between mt-5">
   {selectedPortion? (                           
   <CartAddedButton
     item={{

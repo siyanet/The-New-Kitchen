@@ -27,6 +27,7 @@ import ToastProvider from './Components/ToastProvider.jsx';
 import OwnerReview from './OwnerPages/OwnerReview.jsx';
 import ChefHomePage from './Chef/ChefHomePage.jsx';
 import WaiterHomePage from './Waiter/WaiterHomePage.jsx';
+import WaiterLandingPage from './Waiter/WaiterLandingPage.jsx';
 
 
 
@@ -109,6 +110,10 @@ const router = createBrowserRouter([
    {
     path: "/waiterHomePage",
     element: <WaiterHomePage/>
+   },
+   {
+    path: "/waiterLandingPage",
+    element: <WaiterLandingPage/>
    },
    
  

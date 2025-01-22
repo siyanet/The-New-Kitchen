@@ -15,6 +15,9 @@ import staffReducer from "./staffSlice";
 import reviewsReducer from "./ReviewSlice";
 import chefQueueReducer from "./chefOrderSllice";
 import staffDetailReducer from "./staffDetailSlice";
+import waitersSlliceReducer from "./filterWaiter";
+import pendingOrdersReducer from "./pendingOrders";
+
 
 const store = configureStore({
     reducer:{
@@ -33,7 +36,8 @@ const store = configureStore({
         reviews: reviewsReducer,
         chefQueue: chefQueueReducer,
         staffDetail: staffDetailReducer,
-        
+        filteredWaiters: waitersSlliceReducer,
+        pendingOrders: pendingOrdersReducer,
     },
 });
 export default store;

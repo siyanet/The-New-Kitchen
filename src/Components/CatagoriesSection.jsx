@@ -25,9 +25,9 @@ if(state == "loading"){
     <div className='mt-20 w-full h-auto pl-3  pr-3 md:pr-6 md:pl-6'>
       <h1 className="font-extrabold w-full h-auto font-nunito text-xl md:text-lg text-center mb-7">Catagories</h1>
       {/* <div className='grid grid-rows-1 md:grid-rows-1 grid-cols-2 md:grid-cols-4 gap-20'> */}
-      <div className="flex flex-wrap justify-between gap-2">
+      <div className="flex flex-wrap justify-around  gap-x-4 gap-y-8">
       {
-        category.map( (catagory) => (
+        category.slice(0,6).map( (catagory) => (
             <div key={catagory.id} className='row-span-1 col-span-1 w-1/4 md:1/3 '> 
              <CatagoriesSectionCard  name = {catagory.category_name} menu={catagory.menu_count} imgsrc={catagory.category_image} id={catagory.id} />
             </div>
