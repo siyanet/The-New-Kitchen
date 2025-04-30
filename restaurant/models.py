@@ -3,10 +3,12 @@ from django.conf import settings
 import uuid 
 
 class Restaurant(models.Model):
-    owner = models.ForeignKey(
+    owner = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='restaurants'
+        related_name='restaurant',  # This means each user will have one restaurant
+        null=True,
+        blank=True  # Allow the owner to be optional for existing data
     )
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True)

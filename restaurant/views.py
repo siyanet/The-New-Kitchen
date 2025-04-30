@@ -49,5 +49,5 @@ class BranchViewSet(viewsets.ModelViewSet):
         return Branch.objects.filter(restaurants__owner=self.request.user)
 
     def perform_create(self, serializer):
-        restaurant = self.request.user.restaurants.first()
+        restaurant = self.request.user.restaurant.first()
         serializer.save(restaurant=restaurant)

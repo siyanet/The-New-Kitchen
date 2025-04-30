@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'djoser',
     'restaurant',
     'items',
+    'staff',
 ]
 
 MIDDLEWARE = [
