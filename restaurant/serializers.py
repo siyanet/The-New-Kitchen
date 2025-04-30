@@ -1,13 +1,8 @@
 from rest_framework import serializers
 from django.db import transaction
 from .models import Restaurant,Branch
-from users.serializers import CustomUserCreateSerializer, CustomUserSerializer  # assume you renamed your read serializer
+from users.serializers import CustomUserCreateSerializer, CustomUserSerializer  
 
-from rest_framework.permissions import BasePermission
-
-class IsOwner(BasePermission):
-    def has_object_permission(self, request, view, obj):
-        return obj.restaurant.owner == request.user
 
 
 
