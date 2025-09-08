@@ -49,14 +49,14 @@ const OwnerCatagoryView = () => {
     <div>
       <OwnerNavBar />
       <OwnerSideBar />
-      <div className='pl-28 pr-20'>
+      <div className='pl-48 pr-20'>
        <OwnerHeader name="Categories" onAdd={handleAddView}/>
 
         {/* Check if categories are empty */}
         {category.length === 0 ? (
-          <div className='mt-10 text-center text-lg text-gray-600'>No categories available</div>
+          <div className='mt-10 text-lg text-center text-gray-600'>No categories available</div>
         ) : (
-          <div className='grid grid-cols-1 md:grid-cols-4 gap-10 mt-5'>
+          <div className='grid grid-cols-1 gap-10 mt-5 md:grid-cols-4'>
             {category.map((item) => (
               <CategoryCard key={item.category_id} item={item} onEdit={() => handleEditView(item)}/>
             ))}

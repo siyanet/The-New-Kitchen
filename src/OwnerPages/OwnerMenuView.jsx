@@ -20,10 +20,10 @@ const OwnerMenuView = () => {
   const [menuToEdit, setMenuToEdit] = useState(null);
   // Fetch menus when the component is mounted or when the status is idle
   useEffect(() => {
-    if (status === 'idle') {
+   
       dispatch(fetchMenus());
-    }
-  }, [dispatch, status]);
+    
+  }, [dispatch]);
 
   // Handle loading and error states
   if (status === 'loading') {
@@ -53,14 +53,14 @@ const OwnerMenuView = () => {
       <OwnerNavBar />
       <OwnerSideBar />
 
-      <div className="pl-28 pr-20">
+      <div className="pl-48 pr-20">
         <div className="flex justify-between w-full">
-          <h1 className='font-fredoka font-normal text-2xl text-black'>Menu</h1>
+          <h1 className='text-2xl font-normal text-black font-fredoka'>Menu</h1>
           <div
-            className="rounded-full p-3 bg-black cursor-pointer"
+            className="p-3 bg-black rounded-full cursor-pointer"
             onClick={handleAddMenuClick} // Add click handler
           >
-            <i className="fas fa-add text-white text-lg" />
+            <i className="text-lg text-white fas fa-add" />
           </div>
         </div>
 
@@ -73,11 +73,11 @@ const OwnerMenuView = () => {
 
         {/* Check if menus are empty */}
         {menus.length === 0 ? (
-          <div className="text-center text-gray-600 my-10">
+          <div className="my-10 text-center text-gray-600">
             No menus available.
           </div>
         ) : (
-          <div className="flex flex-wrap justify-center sm:justify-between p-4 gap-3">
+          <div className="flex flex-wrap justify-center gap-3 p-4 sm:justify-between">
             {menus.map((item) => (
               <div className="w-1/2 sm:w-1/4 lg:w-1/4" key={item.menu_id}>
                 <OwnerMenuCard item={item} isEdit={true}  onEdit={() => handleEditMenuClick(item)}  />

@@ -1,11 +1,11 @@
-import store from "./Store";
-import { fetchUser } from "./UserSlice";
+// import store from "./Store";
+// import { fetchUser } from "./UserSlice";
 
 
-export const initializeUser = ()=>{
+// export const initializeUser = ()=>{
     
-    const token = localStorage.getItem("pizzaHutToken");
-    if(token){
-        store.dispatch(fetchUser());
-    }
-};
+//     const token = localStorage.getItem("pizzaHutToken");
+//     if(token){
+//         store.dispatch(fetchUser());
+//     }
+// };

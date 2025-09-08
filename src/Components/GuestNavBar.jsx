@@ -1,13 +1,19 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Logo from "./logo";
 import NavBars from "./NavBars";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CartDetail from "./CartDetail";
-import { logout } from "../Redux/UserSlice";
+// import { logout } from "../Redux/UserSlice";
+import {getCurrentSubdomain} from "../utils/urlHelpers";
+import { clearUser, fetchUser } from "../Redux/UserSlice";
+
+import Logout from "./Logout";
+import { getSubdomainFromPath } from "./utitlites";
 
 const GuestNavBar = () => {
+ 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -17,24 +23,29 @@ const GuestNavBar = () => {
   const toggleCartDetail = () => {
     setCartDetailVisible(!isCartDetailVisible);
   };
-const handleLogout = () => {
-  dispatch(logout());
-  navigate("/");
-  
-}
 
+// const handleLogout = () => {
+//   dispatch(clearUser());
+//   navigate("/");
+// }
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+  const subdomain = getSubdomainFromPath();
   const cartItems = useSelector((state) => state.cart.cartItems);
-  const {user,isAuthenticated} = useSelector((state) => state.user);
-  const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+const { user } = useSelector((state) => state.user);
+const isAuthenticated = !!user;
+useEffect(() => {
+  dispatch(fetchUser());
+}, [dispatch]);
 
+  const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+  
 
   return (
     
-    <div className="fixed z-50 w-full  shadow-md ">
-      <div className="flex justify-between bg-white py-3 px-6 items-center h-14">
+    <div className="fixed z-50 w-full shadow-md ">
+      <div className="flex items-center justify-between px-6 py-3 bg-white h-14">
      
         <div className="w-1/4">
           <Logo />
@@ -42,28 +53,28 @@ const handleLogout = () => {
         </div>
 
         {/* Burger Icon for Small Screens */}
-        <div className="block md:hidden pr-3">
+        <div className="block pr-3 md:hidden">
           <button onClick={toggleMenu} aria-label="Toggle Menu">
             {menuOpen ? (
-              <i className="fas fa-times text-2xl"></i> // Font Awesome close icon
+              <i className="text-2xl fas fa-times"></i> // Font Awesome close icon
             ) : (
-              <i className="fas fa-bars text-2xl"></i> // Font Awesome burger icon
+              <i className="text-2xl fas fa-bars"></i> // Font Awesome burger icon
             )}
           </button>
         </div>
 
         {/* NavBar for Larger Screens */}
-        <div className="hidden md:block pt-3 w-8/12  md:w-4/6 lg:w-3/6 pr-3 pl-3">
-          <ul className="flex list-none  justify-between gap-2 ">
-            <NavBars word="Home" to={'/'} />
-            <NavBars word="Menu" to={"/Menu"}/>
+        <div className="hidden w-8/12 pt-3 pl-3 pr-3 md:block md:w-4/6 lg:w-3/6">
+          <ul className="flex justify-between gap-2 list-none ">
+            <NavBars word="Home" to={`/thekitchenethio/${subdomain}/`} />
+            <NavBars word="Menu" to={`/thekitchenethio/${subdomain}/Menu`}/>
             <NavBars word="Reservation" to={"/"}/>
-            <NavBars word="Testimonials" to={"/Review"} />
+            <NavBars word="Testimonials" to={`/thekitchenethio/${subdomain}/Review`} />
             <NavBars word="About Us" to={"/"}/>
-            <div onClick={toggleCartDetail} className=" underline-hover relative px-2">
+            <div onClick={toggleCartDetail} className="relative px-2 underline-hover">
   <div className="hover:cursor-pointer">
-    <i className="fas fa-shopping-cart text-black text-sm sm:text-base lg:text-xl"></i>
-    <div className="absolute -top-4 -right-3 bg-red text-white rounded-full text-xs h-4 w-4 flex items-center justify-center p-3">
+    <i className="text-sm text-black fas fa-shopping-cart sm:text-base lg:text-xl"></i>
+    <div className="absolute flex items-center justify-center w-4 h-4 p-3 text-xs text-white rounded-full -top-4 -right-3 bg-red">
       {totalQuantity}
     </div>
   </div>
@@ -73,7 +84,7 @@ const handleLogout = () => {
   <div className="flex items-center">
     
   
-  <div className="bg-green-500 text-white rounded-full h-8 w-8 flex items-center justify-center font-fredoka ">
+  <div className="flex items-center justify-center w-8 h-8 text-white bg-green-500 rounded-full font-fredoka ">
     {user?.data.name.charAt(0).toUpperCase()}
   
     
@@ -81,7 +92,7 @@ const handleLogout = () => {
   <span className="ml-2">{user.name}</span>
 
   {isDropdownOpen && (
-            <div className="absolute top-10 right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+            <div className="absolute right-0 z-50 w-40 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg top-10">
               <Link to="/CustomerOrderView" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                 Orders
               </Link>
@@ -90,7 +101,7 @@ const handleLogout = () => {
                   handleLogout();
                   setIsDropdownOpen(false);
                 }}
-                className="w-full text-left block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                className="block w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-100"
               >
                 Logout
               </button>
@@ -99,7 +110,7 @@ const handleLogout = () => {
 </div>
 ): 
 (
-  <Link to="/AuthPage"><li className="underline-hover p-1 -m-1  rounded-lg ">LogIn</li></Link>
+  <Link to="/AuthPage"><li className="p-1 -m-1 rounded-lg underline-hover ">LogIn</li></Link>
 
 
 
@@ -107,10 +118,10 @@ const handleLogout = () => {
 
 {isAuthenticated ? (
         <div className="relative">
-          <div className="flex  items-center space-x-2 " >
+          <div className="flex items-center space-x-2 " >
             {/* User's Initial in a Green Circle */}
-            <div className="bg-green-500 text-white rounded-full h-8 w-8 flex items-center justify-center font-fredoka">
-              {user?.data.name.charAt(0).toUpperCase()}
+            <div className="flex items-center justify-center w-8 h-8 text-white bg-green-500 rounded-full font-fredoka">
+              {user?.full_name?.charAt(0).toUpperCase()}
             </div>
             {/* User's Name */}
             {/* <span className="ml-2">{user?.data.name}</span> */}
@@ -119,26 +130,26 @@ const handleLogout = () => {
 
           {/* Dropdown Menu */}
           {isDropdownOpen && (
-            <div className="absolute top-10 right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-50 font-epilogue">
-              <Link to="/CustomerOrderView" className="block px-4 py-2 text-gray-700 hover:text-white hover:bg-red">
+            <div className="absolute right-0 z-50 w-40 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg top-10 font-epilogue">
+              <Link to={`/thekitchenethio/${subdomain}/CustomerOrderView`} className="block px-4 py-2 text-gray-700 hover:text-white hover:bg-red">
                 Orders
               </Link>
               <button
                 onClick={() => {
-                  handleLogout();
+               
                   setIsDropdownOpen(false);
                 }}
-                className="w-full text-left block px-4 py-2 text-gray-700 hover:text-white hover:bg-red font-epilogue"
+                className="block w-full px-4 py-2 text-left text-gray-700 hover:text-white hover:bg-red font-epilogue"
               >
-                Logout
+                <Logout/>
               </button>
             </div>
           )}
         </div>
       ) : (
-        <Link to="/AuthPage">
-          <li className="underline-hover p-1 -m-1 rounded-lg">Log In</li>
-        </Link>
+        <Link to={`/thekitchenethio/${subdomain}/AuthPage`}>
+      <li className="p-1 -m-1 rounded-lg underline-hover">Log In </li>
+    </Link>
       )}
 
 
@@ -155,8 +166,8 @@ const handleLogout = () => {
 
      
       {menuOpen && (
-  <div className="flex flex-col w-full justify-end md:hidden">
-    <ul className="flex w-1/3 flex-col py-3 gap-3 rounded-b-lg justify-between bg-white text-center border-t ml-auto">
+  <div className="flex flex-col justify-end w-full md:hidden">
+    <ul className="flex flex-col justify-between w-1/3 gap-3 py-3 ml-auto text-center bg-white border-t rounded-b-lg">
       <NavBars word="Home" to={'/'} />
       <NavBars word="Menu" to={"/Menu"} />
       <NavBars word="Reservation" to={"/"} />
@@ -164,35 +175,35 @@ const handleLogout = () => {
       <NavBars word="About Us" to={"/"} />
 
       {/* Cart Icon with Number */}
-      <div onClick={toggleCartDetail} className="relative underline-hover px-2">
-        <div className="hover:cursor-pointer relative inline-block">
-          <i className="fas fa-shopping-cart text-black text-sm sm:text-base lg:text-xl"></i>
+      <div onClick={toggleCartDetail} className="relative px-2 underline-hover">
+        <div className="relative inline-block hover:cursor-pointer">
+          <i className="text-sm text-black fas fa-shopping-cart sm:text-base lg:text-xl"></i>
           {/* Cart number positioned correctly with the cart icon */}
-          <div className="absolute -top-2 -right-2 bg-red text-white rounded-full text-xs h-4 w-4 flex items-center justify-center">
+          <div className="absolute flex items-center justify-center w-4 h-4 text-xs text-white rounded-full -top-2 -right-2 bg-red">
             {totalQuantity}
           </div>
         </div>
       </div>
-      <NavBars word = "Orders" to={"/CustomerOrderView"} />
+      <NavBars word = "Orders" to={`/thekitchenethio/${subdomain}/CustomerOrderView`} />
 
       {/* Centered Login Button */}
       {isAuthenticated ?(
-  <div className="flex-col  items-center justify-center">
-    <p className="" onClick={handleLogout} >logout</p>
+  <div className="flex-col items-center justify-center">
+   <Logout/>
   
-  <div className="bg-green-500  text-white rounded-full h-8 w-8 flex items-center justify-center  ">
-    {user?.data.name.charAt(0).toUpperCase()}
-  
+  <div className="flex items-center justify-center w-8 h-8 text-white bg-green-500 rounded-full ">
+   {user?.full_name?.charAt(0).toUpperCase()}
+
     
   </div>
-  <span className="ml-2">{user.name}</span>
+  <span className="ml-2">{user.full_name}</span>
 </div>
 ): 
 (
-  // <Link to="/AuthPage"><li className="underline-hover p-1 -m-1  rounded-lg ">LogIn</li></Link>
+  // <Link to="/AuthPage"><li className="p-1 -m-1 rounded-lg underline-hover ">LogIn</li></Link>
 
-  <Link to="/AuthPage">
-        <li className="p-1 w-auto mx-auto underline-hover rounded-lg  text-center">
+  <Link to={`/thekitchenethio/${subdomain}/AuthPage`}>
+        <li className="w-auto p-1 mx-auto text-center rounded-lg underline-hover">
           LogIn
         </li>
       </Link>
