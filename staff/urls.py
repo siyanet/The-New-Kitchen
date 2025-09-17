@@ -10,5 +10,5 @@ router.register(r'waiters', WaiterViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-        path('api/auth/login/qr-token/', QRTokenLoginView.as_view(), name='qr-token-login'),
+    path('auth/login/qr-token/', QRTokenLoginView.as_view(), name='qr-token-login'),
 ]

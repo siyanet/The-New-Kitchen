@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 
 import os
+from datetime import timedelta
+
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,21 +35,53 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
+SHARED_APPS = [
+    'django_tenants',          # MUST be first
+    'tenants',
+    'corsheaders',
+   
+
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
+    # 'django.contrib.auth',
+    # 'django.contrib.sessions',
+    # 'django.contrib.admin',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users',
+    'rest_framework',
+  
+    # 'django_extensions',
+]
+
+CORS_ALLOW_ALL_ORIGINS = True 
+ALLOWED_HOSTS = ['*']
+
+TENANT_APPS = [
+    'users',# Your tenant model app
+    
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
     'djoser',
+    'django.contrib.auth',
+    'django.contrib.sessions',
+    'django.contrib.admin',
+ 
     'restaurant',
     'items',
     'staff',
+    'order',
 ]
 
+
+INSTALLED_APPS = SHARED_APPS + [app for app in TENANT_APPS if app not in SHARED_APPS]
+SHOW_PUBLIC_IF_NO_TENANT_FOUND = True
+
+# TENANT_PUBLIC_SCHEMA_NAME = 'public'
+PUBLIC_DOMAIN = 'public.thekitchenethio.localhost'
+TENANT_DOMAIN_PREFIX = ''  # Since you're using full tenant names in domains
+PUBLIC_SCHEMA_URLCONF = 'tenants.urls'
+
 MIDDLEWARE = [
+    "django_tenants.middleware.main.TenantMainMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -54,6 +89,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'the_kitchen_backend.urls'
@@ -76,19 +112,34 @@ TEMPLATES = [
 WSGI_APPLICATION = 'the_kitchen_backend.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+DATABASE_ROUTERS = (
+    'django_tenants.routers.TenantSyncRouter',
+)
+
+
+TENANT_MODEL = "tenants.Client"  # your tenant model
+TENANT_DOMAIN_MODEL = "tenants.Domain"
+
+
+import os
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        "ENGINE": "django_tenants.postgresql_backend",
+        'NAME': os.getenv('POSTGRES_DB', 'new_kitchen'),
+        'USER': os.getenv('DB_USER', 'postgres'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'yourpassword'),
+        'HOST': os.getenv('DB_HOST', 'db'),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+
+
+
+
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -111,11 +162,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+
 
 USE_I18N = True
-
+TIME_ZONE = 'Africa/Addis_Ababa'
 USE_TZ = True
+
 
 
 # Static files (CSS, JavaScript, Images)
@@ -147,11 +199,51 @@ DJOSER = {
         'user_create': 'users.serializers.CustomUserCreateSerializer',
         'user': 'users.serializers.CustomUserSerializer',
         'current_user': 'users.serializers.CustomUserSerializer',
-    }
+        'token_create': 'users.serializers.CustomTokenObtainPairSerializer',
+    },
+    'TOKEN_MODEL': None,  # Important: disables authtoken if using JWT
+    'JWT_AUTH_COOKIE': 'access_token',  # Optional for cookie-based auth
 }
 
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),  # Change as needed
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=5),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}
 
 
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+
+load_dotenv()  # loads .env file automatically
+
+CHAPA_SECRET_KEY = os.getenv('CHAPASECRETKEY')
+
+
+ALLOWED_HOSTS = ['*']
+
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     },
+# }

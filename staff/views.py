@@ -3,30 +3,29 @@ from rest_framework import viewsets, permissions
 from .models import Staff,Kitchen,Waiter
 from rest_framework.permissions import IsAuthenticated
 from .serializers import StaffSerializer, WaiterSerializer, KitchenSerializer
-from users.permissions import IsRestaurantOwner
+from restaurant.views import IsOwnerRoleOrReadOnly
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
-
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create your views here.
 
 
 class TeamMemberStaffViewSet(viewsets.ModelViewSet):
     serializer_class = StaffSerializer
-    permission_classes = [permissions.IsAuthenticated, IsRestaurantOwner]
+    permission_classes = [permissions.IsAuthenticated, IsOwnerRoleOrReadOnly]
 
     def get_queryset(self):
         return Staff.objects.filter(
-            restaurant=self.request.user.restaurant,
             role='team_member'
         )
 
     def perform_create(self, serializer):
         serializer.save(
-            restaurant=self.request.user.restaurant,
+          
             role='team_member'
         )
         
@@ -37,16 +36,22 @@ class TeamMemberStaffViewSet(viewsets.ModelViewSet):
 class KitchenViewSet(viewsets.ModelViewSet):
     queryset = Kitchen.objects.all()
     serializer_class = KitchenSerializer
-    permission_classes = [IsAuthenticated,IsRestaurantOwner]  
+    permission_classes = [IsAuthenticated,IsOwnerRoleOrReadOnly]  
 
  
  
 class WaiterViewSet(viewsets.ModelViewSet):
     queryset = Waiter.objects.all()
     serializer_class = WaiterSerializer
-    permission_classes = [IsAuthenticated]  # Customize the permission as needed
+    permission_classes = [IsAuthenticated,IsOwnerRoleOrReadOnly]  # Customize the permission as needed
 
 
+def get_tokens_for_user(user):
+    refresh = RefreshToken.for_user(user)
+    return {
+        'refresh': str(refresh),
+        'access': str(refresh.access_token),
+    }
 class QRTokenLoginView(APIView):
     permission_classes = [AllowAny]
 
@@ -65,10 +70,11 @@ class QRTokenLoginView(APIView):
         user = waiter.staff.user
         
         # Generate or retrieve the token for the user
-        token, created = Token.objects.get_or_create(user=user)
+        tokens = get_tokens_for_user(user)
 
         return Response({
-            "token": token.key,
+            "access": tokens["access"],
+            "refresh": tokens["refresh"],
             "user": {
                 "id": user.id,
                 "full_name": user.full_name,

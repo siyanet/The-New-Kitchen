@@ -1,5 +1,5 @@
 from django.urls import path,include
-from .views import CreateRestaurantWithOwnerView
+
 from rest_framework.routers import DefaultRouter
 from .views import BranchViewSet
 
@@ -8,6 +8,6 @@ router.register(r'branches', BranchViewSet, basename='branch')
 
 
 urlpatterns = [
-    path('create/', CreateRestaurantWithOwnerView.as_view(), name='restaurant-create'),
+    # path('create/', CreateRestaurantWithOwnerView.as_view(), name='restaurant-create'),
      path('', include(router.urls)),
 ]
