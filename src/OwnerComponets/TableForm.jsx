@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLocations } from "../Redux/LocationSlice";
-import { InputField, OwnerButton } from "./InputField";
+import InputField ,{OwnerButton } from "./InputField";
 import { fetchTables } from "../Redux/tableSlice";
 import { notify } from "../Components/notify";
 import useForm from "../hooks/useForm";
@@ -64,13 +64,13 @@ const TableForm = ({tableToEdit,onClick}) => {
       };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white rounded-lg shadow-lg p-10 max-w-md w-full">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="w-full max-w-md p-10 bg-white rounded-lg shadow-lg">
        {locationStatus == "loading" && <div>loading...</div>}
        {locationError && <div>error fetching location</div>}
        {locations &&
         <form onSubmit={handleSubmit}>
-        <h2 className="font-fredoka text-2xl text-black text-center mb-10">
+        <h2 className="mb-10 text-2xl text-center text-black font-fredoka">
           {tableToEdit ? "Edit Table" : "Add New Table"}
         </h2>
 
@@ -84,7 +84,7 @@ const TableForm = ({tableToEdit,onClick}) => {
         />
 
         <div className="mb-5">
-          <label className="block font-nunito text-lg font-bold text-black py-2">Location</label>
+          <label className="block py-2 text-lg font-bold text-black font-nunito">Location</label>
           <div className="flex flex-col">
             {locations.map((location) => (
               <label key={location.id} className="flex items-center space-x-2">
@@ -100,14 +100,14 @@ const TableForm = ({tableToEdit,onClick}) => {
                 <span className="text-black font-nunito">{location.name}</span>
               </label>
             ))}
-            {errors.location && <p className="text-red text-xs mt-1">{errors.location}</p>}
+            {errors.location && <p className="mt-1 text-xs text-red">{errors.location}</p>}
           </div>
         </div>
 
-        {errors.submit && <p className="text-red text-xs mb-4">{errors.submit}</p>}
-        {loading && <p className="text-yellow text-xs">Adding/Updating table, please wait...</p>}
+        {errors.submit && <p className="mb-4 text-xs text-red">{errors.submit}</p>}
+        {loading && <p className="text-xs text-yellow">Adding/Updating table, please wait...</p>}
 
-        <div className="flex justify-between mb-4 mt-16">
+        <div className="flex justify-between mt-16 mb-4">
           <OwnerButton
             text={tableToEdit ? "Update Table" : "Add Table"}
             type="submit"
