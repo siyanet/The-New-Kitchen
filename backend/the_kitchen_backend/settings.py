@@ -14,7 +14,7 @@ from pathlib import Path
 
 import os
 from datetime import timedelta
-
+import dj_database_url
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -128,15 +128,19 @@ TENANT_DOMAIN_MODEL = "tenants.Domain"
 
 import os
 
+# DATABASES = {
+#     'default': {
+#         "ENGINE": "django_tenants.postgresql_backend",
+#         'NAME': os.getenv('POSTGRES_DB', 'new_kitchen'),
+#         'USER': os.getenv('DB_USER', 'postgres'),
+#         'PASSWORD': os.getenv('DB_PASSWORD', 'yourpassword'),
+#         'HOST': os.getenv('DB_HOST', 'db'),
+#         'PORT': os.getenv('DB_PORT', '5432'),
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        "ENGINE": "django_tenants.postgresql_backend",
-        'NAME': os.getenv('POSTGRES_DB', 'new_kitchen'),
-        'USER': os.getenv('DB_USER', 'postgres'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'yourpassword'),
-        'HOST': os.getenv('DB_HOST', 'db'),
-        'PORT': os.getenv('DB_PORT', '5432'),
-    }
+    "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
 }
 
 
