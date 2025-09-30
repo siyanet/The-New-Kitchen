@@ -1,0 +1,34 @@
+
+services:
+  db:
+    image: postgres:14
+    container_name: the_kitchen_backend_web_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: yourpassword
+      POSTGRES_DB: new_kitchen
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    container_name: the_kitchen_new_web_pro
+    command: >
+      bash -c "
+      python manage.py migrate_schemas --shared &&
+      python manage.py migrate_schemas &&
+      python manage.py runserver 0.0.0.0:8000 --settings=the_kitchen_backend.settings
+      "
+    volumes:
+      - .:/code   # <-- updated path
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+volumes:
+  postgres_data: {}
