@@ -86,6 +86,17 @@ function useForm<T extends Record<string, any>>(
 //     validateField(name, value);
 //   };
 
+
+// Type-safe handler for file input changes
+const handleFileChange = (name: string, file: File | null) => {
+  setFormState((prev) => ({
+    ...prev,
+    [name]: file,
+  }));
+};
+
+
+
   const handleChange = (name: string, value: string) => {
     setFormState((prev) => ({
       ...prev,
@@ -138,6 +149,7 @@ function useForm<T extends Record<string, any>>(
     formState,
     errors,
     handleChange,
+    handleFileChange,
     validateForm,
     setFormState,
     setErrors,

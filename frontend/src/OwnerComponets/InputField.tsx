@@ -129,7 +129,7 @@ export const OwnerButton: React.FC<OwnerButtonProps> = ({
 interface FileInputProps {
   label: string;
   name: string;
-  onChange: (name: string, file: File | string) => void;
+  onChange: (name: string, file: File | null) => void;
   error?: string;
 }
 

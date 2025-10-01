@@ -126,7 +126,7 @@ TENANT_MODEL = "tenants.Client"  # your tenant model
 TENANT_DOMAIN_MODEL = "tenants.Domain"
 
 
-import os
+
 
 # DATABASES = {
 #     'default': {
@@ -140,8 +140,20 @@ import os
 # }
 
 DATABASES = {
-    "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
+    "default": {
+        "ENGINE": "django_tenants.postgresql_backend",   # 👈 THIS IS THE ENGINE
+        "NAME": os.environ.get("POSTGRES_DB"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        "HOST": os.environ.get("POSTGRES_HOST"),  # on Docker: "db", on Render: your Render Postgres host
+        "PORT": os.environ.get("POSTGRES_PORT", "5432"),
+    }
 }
+
+
+# DATABASES = {
+#     "default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))
+# }
 
 
 
