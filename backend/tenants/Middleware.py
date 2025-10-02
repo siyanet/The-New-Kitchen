@@ -95,6 +95,54 @@ from .db_routers import set_current_tenant_db
 
 logger = logging.getLogger(__name__)
 
+# class TenantMiddleware(MiddlewareMixin):
+#     """
+#     Path-based tenant middleware for django-tenants.
+#     Expects URLs like /t/<tenant_slug>/...
+#     """
+
+#     def process_request(self, request):
+#         path_parts = request.path.strip("/").split("/")
+#         tenant = None
+
+#         # Only handle path-based tenants
+#         if len(path_parts) > 1 and path_parts[0] == "t":
+#             tenant_slug = path_parts[1]
+
+#             # ✅ Ensure we're in the public schema to query tenants
+#             connection.set_schema("public")
+
+#             all_tenants = list(Tenant.objects.all())
+#             logger.info(f"All tenants in public schema: {all_tenants}")
+
+#             # Find tenant by schema_name
+#             tenant = Tenant.objects.filter(schema_name=tenant_slug).first()
+
+#             if not tenant:
+#                 logger.warning(f"Tenant '{tenant_slug}' not found!")
+#                 raise Http404("Tenant not found")
+
+#             # ✅ Switch DB connection to tenant schema
+#             connection.set_schema(tenant.schema_name)
+
+#             # ✅ Store tenant for request and DB router
+#             set_current_tenant(tenant)
+#             set_current_tenant_db(tenant.schema_name)
+
+#             logger.info(f"Tenant middleware fired: path={request.path}, tenant={tenant.schema_name}")
+
+#         else:
+#             # Public schema fallback
+#             connection.set_schema("public")
+#             set_current_tenant(None)
+#             set_current_tenant_db("default")
+#             tenant = None
+#             logger.info(f"Tenant middleware fired: path={request.path}, public schema used")
+
+#         # Attach tenant object to request for convenience
+#         request.tenant = tenant
+
+
 class TenantMiddleware(MiddlewareMixin):
     """
     Path-based tenant middleware for django-tenants.
@@ -110,7 +158,7 @@ class TenantMiddleware(MiddlewareMixin):
             tenant_slug = path_parts[1]
 
             # ✅ Ensure we're in the public schema to query tenants
-            connection.set_schema("public")
+            connection.set_schema_to_public()
 
             all_tenants = list(Tenant.objects.all())
             logger.info(f"All tenants in public schema: {all_tenants}")
@@ -123,17 +171,26 @@ class TenantMiddleware(MiddlewareMixin):
                 raise Http404("Tenant not found")
 
             # ✅ Switch DB connection to tenant schema
-            connection.set_schema(tenant.schema_name)
+            connection.set_tenant(tenant)
 
             # ✅ Store tenant for request and DB router
             set_current_tenant(tenant)
             set_current_tenant_db(tenant.schema_name)
 
-            logger.info(f"Tenant middleware fired: path={request.path}, tenant={tenant.schema_name}")
+            # Strip the tenant prefix from the path for URL routing
+            new_path = '/' + '/'.join(path_parts[2:])
+            if not new_path:
+                new_path = '/'
+            
+            # Update the request path so URL routing works correctly
+            request.path = new_path
+            request.path_info = new_path
+
+            logger.info(f"Tenant middleware fired: original_path={request.path}, tenant={tenant.schema_name}, new_path={new_path}")
 
         else:
             # Public schema fallback
-            connection.set_schema("public")
+            connection.set_schema_to_public()
             set_current_tenant(None)
             set_current_tenant_db("default")
             tenant = None
