@@ -201,80 +201,117 @@ logger = logging.getLogger(__name__)
 #         request.tenant = tenant
 
 
+# class TenantMiddleware(MiddlewareMixin):
+#     """
+#     Path-based tenant middleware for django-tenants.
+#     Expects URLs like /t/<tenant_slug>/...
+#     """
+
+#     def process_request(self, request):
+#         path_parts = request.path.strip("/").split("/")
+#         tenant = None
+
+#         # Only handle path-based tenants
+#         if len(path_parts) > 1 and path_parts[0] == "t":
+#             tenant_slug = path_parts[1]
+
+#             # ✅ Ensure we're in the public schema to query tenants
+#             connection.set_schema("public")
+
+#             all_tenants = list(Tenant.objects.all())
+#             logger.info(f"All tenants in public schema: {all_tenants}")
+
+#             # Find tenant by schema_name
+#             tenant = Tenant.objects.filter(schema_name=tenant_slug).first()
+
+#             if not tenant:
+#                 logger.warning(f"Tenant '{tenant_slug}' not found!")
+#                 raise Http404("Tenant not found")
+
+#             # ✅ Switch DB connection to tenant schema
+#             connection.set_schema(tenant.schema_name)
+
+#             # ✅ Store tenant for request and DB router
+#             set_current_tenant(tenant)
+#             set_current_tenant_db(tenant.schema_name)
+
+#             # Log available URLs for debugging
+#             self._log_available_urls(request, tenant_slug)
+
+#             logger.info(f"Tenant middleware fired: path={request.path}, tenant={tenant.schema_name}")
+
+#         else:
+#             # Public schema fallback
+#             connection.set_schema("public")
+#             set_current_tenant(None)
+#             set_current_tenant_db("default")
+#             tenant = None
+#             logger.info(f"Tenant middleware fired: path={request.path}, public schema used")
+
+#         # Attach tenant object to request for convenience
+#         request.tenant = tenant
+
+#     def _log_available_urls(self, request, tenant_slug):
+#         """Log all available URL patterns for debugging"""
+#         try:
+#             resolver = get_resolver()
+#             url_patterns = self._get_url_patterns(resolver)
+            
+#             logger.info(f"Available URL patterns for tenant '{tenant_slug}':")
+#             for pattern in url_patterns:
+#                 logger.info(f"  - {pattern}")
+                
+#             # Also log the specific path we're looking for
+#             new_path = '/' + '/'.join(request.path.strip("/").split("/")[2:])
+#             logger.info(f"Looking for path: {new_path}")
+            
+#         except Exception as e:
+#             logger.warning(f"Could not retrieve URL patterns: {e}")
+
+#     def _get_url_patterns(self, resolver, prefix=''):
+#         """Recursively extract all URL patterns"""
+#         patterns = []
+#         for pattern in resolver.url_patterns:
+#             if hasattr(pattern, 'url_patterns'):
+#                 # This is an include - recurse into it
+#                 patterns.extend(self._get_url_patterns(pattern, prefix + str(pattern.pattern)))
+#             else:
+#                 patterns.append(prefix + str(pattern.pattern))
+#         return patterns
+
+
+
 class TenantMiddleware(MiddlewareMixin):
     """
     Path-based tenant middleware for django-tenants.
-    Expects URLs like /t/<tenant_slug>/...
+    URLs like /t/<tenant_slug>/...
     """
 
     def process_request(self, request):
         path_parts = request.path.strip("/").split("/")
         tenant = None
 
-        # Only handle path-based tenants
         if len(path_parts) > 1 and path_parts[0] == "t":
             tenant_slug = path_parts[1]
 
-            # ✅ Ensure we're in the public schema to query tenants
+            # Switch to public schema to query tenants
             connection.set_schema("public")
-
-            all_tenants = list(Tenant.objects.all())
-            logger.info(f"All tenants in public schema: {all_tenants}")
-
-            # Find tenant by schema_name
             tenant = Tenant.objects.filter(schema_name=tenant_slug).first()
 
             if not tenant:
                 logger.warning(f"Tenant '{tenant_slug}' not found!")
                 raise Http404("Tenant not found")
 
-            # ✅ Switch DB connection to tenant schema
+            # Switch DB connection to tenant schema
             connection.set_schema(tenant.schema_name)
 
-            # ✅ Store tenant for request and DB router
-            set_current_tenant(tenant)
-            set_current_tenant_db(tenant.schema_name)
-
-            # Log available URLs for debugging
-            self._log_available_urls(request, tenant_slug)
+            # Store tenant on request
+            request.tenant = tenant
 
             logger.info(f"Tenant middleware fired: path={request.path}, tenant={tenant.schema_name}")
 
         else:
             # Public schema fallback
             connection.set_schema("public")
-            set_current_tenant(None)
-            set_current_tenant_db("default")
-            tenant = None
+            request.tenant = None
             logger.info(f"Tenant middleware fired: path={request.path}, public schema used")
-
-        # Attach tenant object to request for convenience
-        request.tenant = tenant
-
-    def _log_available_urls(self, request, tenant_slug):
-        """Log all available URL patterns for debugging"""
-        try:
-            resolver = get_resolver()
-            url_patterns = self._get_url_patterns(resolver)
-            
-            logger.info(f"Available URL patterns for tenant '{tenant_slug}':")
-            for pattern in url_patterns:
-                logger.info(f"  - {pattern}")
-                
-            # Also log the specific path we're looking for
-            new_path = '/' + '/'.join(request.path.strip("/").split("/")[2:])
-            logger.info(f"Looking for path: {new_path}")
-            
-        except Exception as e:
-            logger.warning(f"Could not retrieve URL patterns: {e}")
-
-    def _get_url_patterns(self, resolver, prefix=''):
-        """Recursively extract all URL patterns"""
-        patterns = []
-        for pattern in resolver.url_patterns:
-            if hasattr(pattern, 'url_patterns'):
-                # This is an include - recurse into it
-                patterns.extend(self._get_url_patterns(pattern, prefix + str(pattern.pattern)))
-            else:
-                patterns.append(prefix + str(pattern.pattern))
-        return patterns

@@ -38,13 +38,13 @@ urlpatterns = [
 
     # Tenant-specific URLs
     
-        path('t/<str:tenant_slug>/api/auth/', include('djoser.urls')),
-        path('t/<str:tenant_slug>/api/auth/', include('djoser.urls.jwt')),
-        path('t/<str:tenant_slug>/api/users/', include('users.urls')),
-        path('t/<str:tenant_slug>/api/restaurant/', include('restaurant.urls')),
-        path('t/<str:tenant_slug>/api/items/', include('items.urls')),
-        path('t/<str:tenant_slug>/api/staffs/', include('staff.urls')),
-        path('t/<str:tenant_slug>/api/orders/', include('order.urls')),
+    path('t/<str:tenant_slug>/api/auth/', include('djoser.urls')),
+    path('t/<str:tenant_slug>/api/auth/', include('djoser.urls.jwt')),
+    path('t/<str:tenant_slug>/api/users/', include('users.urls')),
+    path('t/<str:tenant_slug>/api/restaurant/', include('restaurant.urls')),
+    path('t/<str:tenant_slug>/api/items/', include('items.urls')),
+    path('t/<str:tenant_slug>/api/staffs/', include('staff.urls')),
+    path('t/<str:tenant_slug>/api/orders/', include('order.urls')),
 ]
 
 if settings.DEBUG:
