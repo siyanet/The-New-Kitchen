@@ -42,7 +42,50 @@
 
 
 # tenants/middleware.py
-from urllib import request
+# from urllib import request
+# from django.utils.deprecation import MiddlewareMixin
+# from django.http import Http404
+# from django.db import connection
+# from .models import Client as Tenant
+# from .tenant_context import set_current_tenant
+# from .db_routers import set_current_tenant_db
+
+# class TenantMiddleware(MiddlewareMixin):
+#     def process_request(self, request):
+#         path_parts = request.path.strip("/").split("/")
+#         tenant = None
+#         import logging
+#         logger = logging.getLogger(__name__)
+#         logger.info(f"Tenant middleware fired, path={request.path}, tenant={tenant}")
+
+
+#         # Expecting URLs like /t/<tenant>/
+#         if len(path_parts) > 1 and path_parts[0] == "t":
+#             tenant_slug = path_parts[1]
+#             tenant = Tenant.objects.filter(schema_name=tenant_slug).first()
+
+#             if not tenant:
+#                 raise Http404("Tenant not found")
+
+#             # ✅ Store tenant object and db/schema name
+#             set_current_tenant(tenant)
+#             set_current_tenant_db(tenant.schema_name)
+
+#             # ✅ Switch DB schema (important for schema-based tenancy)
+#             connection.set_schema(tenant.schema_name)
+
+#         else:
+#             # Default to public
+#             set_current_tenant(None)
+#             set_current_tenant_db("default")
+#             connection.set_schema("public")
+
+#         # Attach tenant to request for convenience
+#         request.tenant = tenant
+
+
+# tenants/middleware.py
+import logging
 from django.utils.deprecation import MiddlewareMixin
 from django.http import Http404
 from django.db import connection
@@ -50,35 +93,51 @@ from .models import Client as Tenant
 from .tenant_context import set_current_tenant
 from .db_routers import set_current_tenant_db
 
+logger = logging.getLogger(__name__)
+
 class TenantMiddleware(MiddlewareMixin):
+    """
+    Path-based tenant middleware for django-tenants.
+    Expects URLs like /t/<tenant_slug>/...
+    """
+
     def process_request(self, request):
         path_parts = request.path.strip("/").split("/")
         tenant = None
-        import logging
-        logger = logging.getLogger(__name__)
-        logger.info(f"Tenant middleware fired, path={request.path}, tenant={tenant}")
 
-
-        # Expecting URLs like /t/<tenant>/
+        # Only handle path-based tenants
         if len(path_parts) > 1 and path_parts[0] == "t":
             tenant_slug = path_parts[1]
+
+            # ✅ Ensure we're in the public schema to query tenants
+            connection.set_schema("public")
+
+            all_tenants = list(Tenant.objects.all())
+            logger.info(f"All tenants in public schema: {all_tenants}")
+
+            # Find tenant by schema_name
             tenant = Tenant.objects.filter(schema_name=tenant_slug).first()
 
             if not tenant:
+                logger.warning(f"Tenant '{tenant_slug}' not found!")
                 raise Http404("Tenant not found")
 
-            # ✅ Store tenant object and db/schema name
+            # ✅ Switch DB connection to tenant schema
+            connection.set_schema(tenant.schema_name)
+
+            # ✅ Store tenant for request and DB router
             set_current_tenant(tenant)
             set_current_tenant_db(tenant.schema_name)
 
-            # ✅ Switch DB schema (important for schema-based tenancy)
-            connection.set_schema(tenant.schema_name)
+            logger.info(f"Tenant middleware fired: path={request.path}, tenant={tenant.schema_name}")
 
         else:
-            # Default to public
+            # Public schema fallback
+            connection.set_schema("public")
             set_current_tenant(None)
             set_current_tenant_db("default")
-            connection.set_schema("public")
+            tenant = None
+            logger.info(f"Tenant middleware fired: path={request.path}, public schema used")
 
-        # Attach tenant to request for convenience
+        # Attach tenant object to request for convenience
         request.tenant = tenant
