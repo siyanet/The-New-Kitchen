@@ -46,7 +46,7 @@ from urllib import request
 from django.utils.deprecation import MiddlewareMixin
 from django.http import Http404
 from django.db import connection
-from .models import Tenant
+from .models import Client as Tenant
 from .tenant_context import set_current_tenant
 from .db_routers import set_current_tenant_db
 
