@@ -34,7 +34,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/tenant/', include('tenants.urls')),
+    # path('api/tenant/', include('tenants.urls')),
     # All tenant APIs prefixed with /t/<tenant_slug>/
     path('t/<str:tenant_slug>/', include('the_kitchen_backend.tenant_urls')),
 ]
