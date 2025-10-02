@@ -86,6 +86,7 @@ TENANT_DOMAIN_PREFIX = ''  # Since you're using full tenant names in domains
 PUBLIC_SCHEMA_URLCONF = 'tenants.urls'
 
 MIDDLEWARE = [
+    "tenants.Middleware.TenantMiddleware",
     "django_tenants.middleware.main.TenantMainMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
