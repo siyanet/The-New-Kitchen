@@ -19,24 +19,17 @@ from django.urls import path,include
 from django.conf import settings
 from django.conf.urls.static import static
 
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-#     path('api/auth/', include('djoser.urls')),
-#     path('api/auth/', include('djoser.urls.jwt')), 
-#     path('api/users/',include('users.urls')),
-#     path('api/restaurant/', include('restaurant.urls')),
-#     path('api/items/', include('items.urls')),
-#     path('api/staffs/',include("staff.urls")),
-#     path('api/orders/',include("order.urls")),
-#     path('api/tenant/', include('tenants.urls')),
-
-# ]
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('api/tenant/', include('tenants.urls')),
-    # All tenant APIs prefixed with /t/<tenant_slug>/
-    path('t/<str:tenant_slug>/', include('the_kitchen_backend.tenant_urls')),
+    path('api/auth/', include('djoser.urls')),
+    path('api/auth/', include('djoser.urls.jwt')), 
+    path('api/users/',include('users.urls')),
+    path('api/restaurant/', include('restaurant.urls')),
+    path('api/items/', include('items.urls')),
+    path('api/staffs/',include("staff.urls")),
+    path('api/orders/',include("order.urls")),
+    path('api/tenant/', include('tenants.urls')),
+
 ]
 
 if settings.DEBUG:
