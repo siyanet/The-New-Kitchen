@@ -251,10 +251,20 @@ CLOUDINARY_STORAGE = {
 }
 
 
+STATIC_URL = "/static/"
+
 MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "cloudinary_storage.storage.StaticCloudinaryStorage",
+    },
+}
 
 
 load_dotenv()  # loads .env file automatically
