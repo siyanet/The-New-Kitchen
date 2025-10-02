@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-
+import sys
 import os
 from datetime import timedelta
 import dj_database_url
@@ -275,6 +275,34 @@ CHAPA_SECRET_KEY = os.getenv('CHAPASECRETKEY')
 
 ALLOWED_HOSTS = ['*']
 
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {"format": "[{levelname}] {asctime} {name}: {message}", "style": "{"},
+    },
+    "handlers": {
+        "console": {
+            "level": "INFO",  # <-- change to INFO
+            "class": "logging.StreamHandler",
+            "stream": sys.stdout,
+            "formatter": "verbose",
+        },
+    },
+    "loggers": {
+        "": {  # root logger
+            "handlers": ["console"],
+            "level": "INFO",
+        },
+        "tenants.middleware": {  # your middleware logger
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}
 
 # LOGGING = {
 #     'version': 1,
