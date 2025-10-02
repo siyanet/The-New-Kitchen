@@ -1,21 +1,3 @@
-# # tenants/views.py
-# from rest_framework.views import APIView
-# from rest_framework.response import Response
-# from rest_framework import status
-# from .serializers import TenantRegistrationSerializer
-
-# class TenantRegistrationView(APIView):
-#     def post(self, request, *args, **kwargs):
-#         serializer = TenantRegistrationSerializer(data=request.data)
-#         if serializer.is_valid():
-#             tenant = serializer.save()
-#             return Response({
-#                 "message": "Tenant created successfully",
-#                 "tenant_id": tenant.id,
-#                 "schema": tenant.schema_name,
-#                 'domain': tenant.domain
-#             }, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 from rest_framework.views import APIView
@@ -30,6 +12,10 @@ from djoser.utils import login_user
 from .models import Domain,Client
 from .serializers import TenantSerializer
 from rest_framework.permissions import AllowAny
+
+from django.http import JsonResponse
+from django.db import connection
+
 class TenantRegistrationView(APIView):
     def post(self, request, *args, **kwargs):
         # First create the tenant
@@ -87,4 +73,8 @@ class TenantInfoView(APIView):
             serializer = TenantSerializer(tenant)
             return Response({'tenant': serializer.data})
         return Response({"detail": "Tenant not found"}, status=404)
-
+def debug_schemas(request):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT schema_name FROM information_schema.schemata;")
+        schemas = [row[0] for row in cursor.fetchall()]
+    return JsonResponse({"schemas": schemas})
