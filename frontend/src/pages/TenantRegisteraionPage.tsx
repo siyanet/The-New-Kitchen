@@ -55,7 +55,7 @@ const TenantRegistration: React.FC = () => {
   };
     try {
       // const res = await axios.post<TenantResponse>('register', payload);
-      const res = await axios.post<TenantResponse>('http://127.0.0.1:8000/register/', payload);
+      const res = await axios.post<TenantResponse>('https://the-new-kitchen.onrender.com/register/', payload);
 
       setResponse(res.data);
     } catch (err: any) {
