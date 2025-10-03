@@ -251,22 +251,22 @@ logger = logging.getLogger(__name__)
 #         # Attach tenant object to request for convenience
 #         request.tenant = tenant
 
-#     def _log_available_urls(self, request, tenant_slug):
-#         """Log all available URL patterns for debugging"""
-#         try:
-#             resolver = get_resolver()
-#             url_patterns = self._get_url_patterns(resolver)
+    # def _log_available_urls(self, request, tenant_slug):
+    #     """Log all available URL patterns for debugging"""
+    #     try:
+    #         resolver = get_resolver()
+    #         url_patterns = self._get_url_patterns(resolver)
             
-#             logger.info(f"Available URL patterns for tenant '{tenant_slug}':")
-#             for pattern in url_patterns:
-#                 logger.info(f"  - {pattern}")
+    #         logger.info(f"Available URL patterns for tenant '{tenant_slug}':")
+    #         for pattern in url_patterns:
+    #             logger.info(f"  - {pattern}")
                 
-#             # Also log the specific path we're looking for
-#             new_path = '/' + '/'.join(request.path.strip("/").split("/")[2:])
-#             logger.info(f"Looking for path: {new_path}")
+    #         # Also log the specific path we're looking for
+    #         new_path = '/' + '/'.join(request.path.strip("/").split("/")[2:])
+    #         logger.info(f"Looking for path: {new_path}")
             
-#         except Exception as e:
-#             logger.warning(f"Could not retrieve URL patterns: {e}")
+    #     except Exception as e:
+    #         logger.warning(f"Could not retrieve URL patterns: {e}")
 
 #     def _get_url_patterns(self, resolver, prefix=''):
 #         """Recursively extract all URL patterns"""
@@ -317,9 +317,27 @@ class TenantMiddleware(MiddlewareMixin):
                 f"Tenant middleware fired: original_path={request.path}, "
                 f"rewritten_path={new_path}, tenant={tenant.schema_name}"
             )
+            self._log_available_urls(request, tenant_slug)
 
         else:
             # Public schema fallback
             connection.set_schema("public")
             request.tenant = None
             logger.info(f"Tenant middleware fired: path={request.path}, public schema used")
+            
+    def _log_available_urls(self, request, tenant_slug):
+        """Log all available URL patterns for debugging"""
+        try:
+            resolver = get_resolver()
+            url_patterns = self._get_url_patterns(resolver)
+            
+            logger.info(f"Available URL patterns for tenant '{tenant_slug}':")
+            for pattern in url_patterns:
+                logger.info(f"  - {pattern}")
+                
+            # Also log the specific path we're looking for
+            new_path = '/' + '/'.join(request.path.strip("/").split("/")[2:])
+            logger.info(f"Looking for path: {new_path}")
+            
+        except Exception as e:
+            logger.warning(f"Could not retrieve URL patterns: {e}")
