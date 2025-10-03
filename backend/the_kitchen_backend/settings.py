@@ -217,7 +217,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-
+APPEND_SLASH = False  # Disable automatic appending of slashes
 
 DJOSER = {
     'USER_ID_FIELD': 'id',
