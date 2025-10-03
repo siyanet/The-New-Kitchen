@@ -309,7 +309,10 @@ class TenantMiddleware(MiddlewareMixin):
             request.tenant = tenant
 
             new_path = "/" + "/".join(path_parts[2:])
-            request.path_info = new_path  # Important for Django URL resolver
+            if request.path.endswith("/") and not new_path.endswith("/"):
+                new_path += "/"
+            request.path_info = new_path
+
             logger.info(
                 f"Tenant middleware fired: original_path={request.path}, "
                 f"rewritten_path={new_path}, tenant={tenant.schema_name}"
