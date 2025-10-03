@@ -217,7 +217,7 @@ REST_FRAMEWORK = {
     ),
 }
 
-APPEND_SLASH = True
+
 
 DJOSER = {
     'USER_ID_FIELD': 'id',
