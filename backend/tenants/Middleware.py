@@ -308,7 +308,12 @@ class TenantMiddleware(MiddlewareMixin):
             # Store tenant on request
             request.tenant = tenant
 
-            logger.info(f"Tenant middleware fired: path={request.path}, tenant={tenant.schema_name}")
+            new_path = "/" + "/".join(path_parts[2:])
+            request.path_info = new_path  # Important for Django URL resolver
+            logger.info(
+                f"Tenant middleware fired: original_path={request.path}, "
+                f"rewritten_path={new_path}, tenant={tenant.schema_name}"
+            )
 
         else:
             # Public schema fallback
