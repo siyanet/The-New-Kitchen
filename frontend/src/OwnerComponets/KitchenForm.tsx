@@ -8,6 +8,7 @@ import { notify } from '../Components/notify';
 import InputField, { OwnerButton } from './InputField';
 import { fetchBranches } from '../Redux/branchSlice';
 import { fetchCategories } from '../Redux/categorySlice';
+import { fetchKitchens } from '../Redux/kitchenSlice';
 
 interface KitchenFormProps {
   onClick: () => void;
@@ -34,6 +35,8 @@ const KitchenForm: FC<KitchenFormProps> = ({ onClick }) => {
     formState,
     errors,
     handleChange,
+    handleSelectChange,
+    handleFileChange,
     validateForm,
     setFormState,
     setErrors,
@@ -78,7 +81,7 @@ const KitchenForm: FC<KitchenFormProps> = ({ onClick }) => {
     };
 
     try {
-      const response = await AxiosInstance.post('kitchen/', payload, { withAuth: true });
+      const response = await AxiosInstance.post('staffs/kitchens/', payload, { withAuth: true });
 
       if (response.status === 201 || response.status === 200) {
         notify('Kitchen Staff Added Successfully!', 'success');
@@ -93,6 +96,7 @@ const KitchenForm: FC<KitchenFormProps> = ({ onClick }) => {
             selectedCategories: [],
           });
           onClick();
+          dispatch(fetchKitchens());
         }, 1500);
       }
     } catch (err: any) {
@@ -174,7 +178,7 @@ const KitchenForm: FC<KitchenFormProps> = ({ onClick }) => {
         <select
           name="branch_id"
           value={formState.branch_id}
-          onChange={handleChange}
+          onChange={handleSelectChange}
           className="w-full px-3 py-2 border rounded-md"
         >
           <option value="">-- Choose Branch --</option>

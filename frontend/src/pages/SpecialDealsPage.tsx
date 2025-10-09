@@ -96,7 +96,7 @@ const SpecialDealsPage = () => {
         <div className="flex flex-col items-center justify-between w-full lg:flex-row">
           <div className="flex items-center justify-center w-full h-full max-w-2xl lg:w-1/2">
             <img
-              src="BurgerImage.png"
+              src="/BurgerImage.png"
               className="w-full h-auto max-h-[400px] md:max-h-[700px] max-w-[400px] md:max-w-[900px] object-fit animate-move"
               alt="Burger"
             />

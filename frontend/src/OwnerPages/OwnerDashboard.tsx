@@ -172,11 +172,11 @@ const Dashboard: React.FC<DashboardProps> = ({ branchId }) => {
   };
 
   return (
-    <div className="p-6 space-y-8">
-      <div className='flex'><OwnerNavBar/> <LogOut/></div>
+    <div >
+      <OwnerNavBar/> 
       
       <OwnerSideBar/>
-      <div className='pl-48'>
+      <div className='pl-48 pr-20'>
         <h1 className='text-2xl font-normal text-black font-fredoka'>Dashboard</h1>
        
 

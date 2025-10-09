@@ -197,6 +197,8 @@ const CategoryForm: FC<CategoryFormProps> = ({ onClick, categoryToEdit }) => {
       const response = categoryToEdit
         ? await AxiosInstance.put(endpoint, data,{withAuth: true})
         : await AxiosInstance.post(endpoint, data,{withAuth: true});
+        console.log("response from category");
+        console.log(response);
 
       if (response.status === 200 || response.status === 201) {
         notify(`Category ${categoryToEdit ? "Updated" : "Added"} Successfully!`, "success");

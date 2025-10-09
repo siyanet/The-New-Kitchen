@@ -73,7 +73,7 @@ const OwnerKitchenView: React.FC = () => {
             headers={headers}
             rows={rows}
             isEditable={true}
-            isActivable={true}
+            
             onEdit={handleEdit}
             onStatusChange={handleStatusChange}
           />

@@ -68,9 +68,8 @@ useEffect(() => {
           <ul className="flex justify-between gap-2 list-none ">
             <NavBars word="Home" to={`/thekitchenethio/${subdomain}/`} />
             <NavBars word="Menu" to={`/thekitchenethio/${subdomain}/Menu`}/>
-            <NavBars word="Reservation" to={"/"}/>
+            <NavBars word="Special Deals" to={`/thekitchenethio/${subdomain}/special-deals`}/>
             <NavBars word="Testimonials" to={`/thekitchenethio/${subdomain}/Review`} />
-            <NavBars word="About Us" to={"/"}/>
             <div onClick={toggleCartDetail} className="relative px-2 underline-hover">
   <div className="hover:cursor-pointer">
     <i className="text-sm text-black fas fa-shopping-cart sm:text-base lg:text-xl"></i>
@@ -79,42 +78,7 @@ useEffect(() => {
     </div>
   </div>
 </div>
-{/* {isAuthenticated ?(
-  
-  <div className="flex items-center">
-    
-  
-  <div className="flex items-center justify-center w-8 h-8 text-white bg-green-500 rounded-full font-fredoka ">
-    {user?.data.name.charAt(0).toUpperCase()}
-  
-    
-  </div>
-  <span className="ml-2">{user.name}</span>
 
-  {isDropdownOpen && (
-            <div className="absolute right-0 z-50 w-40 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg top-10">
-              <Link to="/CustomerOrderView" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                Orders
-              </Link>
-              <button
-                onClick={() => {
-                  handleLogout();
-                  setIsDropdownOpen(false);
-                }}
-                className="block w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-100"
-              >
-                Logout
-              </button>
-            </div>
-          )}
-</div>
-): 
-(
-  <Link to="/AuthPage"><li className="p-1 -m-1 rounded-lg underline-hover ">LogIn</li></Link>
-
-
-
-)} */}
 
 {isAuthenticated ? (
         <div className="relative">
@@ -168,11 +132,15 @@ useEffect(() => {
       {menuOpen && (
   <div className="flex flex-col justify-end w-full md:hidden">
     <ul className="flex flex-col justify-between w-1/3 gap-3 py-3 ml-auto text-center bg-white border-t rounded-b-lg">
-      <NavBars word="Home" to={'/'} />
+      {/* <NavBars word="Home" to={'/'} />
       <NavBars word="Menu" to={"/Menu"} />
-      <NavBars word="Reservation" to={"/"} />
-      <NavBars word="Testimonials" to={"/Review"} />
-      <NavBars word="About Us" to={"/"} />
+  
+      <NavBars word="Testimonials" to={"/Review"} /> */}
+        <NavBars word="Home" to={`/thekitchenethio/${subdomain}/`} />
+            <NavBars word="Menu" to={`/thekitchenethio/${subdomain}/Menu`}/>
+            <NavBars word="Special Deals" to={`/thekitchenethio/${subdomain}/special-deals`}/>
+            <NavBars word="Testimonials" to={`/thekitchenethio/${subdomain}/Review`} />
+   
 
       {/* Cart Icon with Number */}
       <div onClick={toggleCartDetail} className="relative px-2 underline-hover">

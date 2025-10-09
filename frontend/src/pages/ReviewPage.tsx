@@ -1,74 +1,3 @@
-// import { useEffect } from "react";
-// import GuestNavBar from "../Components/GuestNavBar";
-// import ReviewComponent from "../Components/ReviewComponent";
-// import { useDispatch, useSelector } from "react-redux";
-// import { fetchReviews } from "../Redux/ReviewSlice";
-
-
-// const ReviewPage = () => {
-//   const dispatch = useDispatch(); 
-//     const {reviews,loading,error} = useSelector((state)=>state.reviews);
-//     useEffect(()=>{
-//         dispatch(fetchReviews());
-//     },[dispatch]);
-//     if (loading) return <p>Loading reviews...</p>;
-//     if (error) return <p>Error fetching reviews: {error}</p>; 
-//     // const reviews = [
-//     //     {
-//     //       comment: 'The food was fantastic, will definitely return!',
-//     //       name: 'John Doe',
-//     //       rate: 5
-//     //     },
-//     //     {
-//     //       comment: 'Service was great but the food was just okay.',
-//     //       name: 'Jane Smith',
-//     //       rate: 3
-//     //     },
-//     //     {
-//     //       comment: 'Had a lovely time, everything was perfect!',
-//     //       name: 'Emily Johnson',
-//     //       rate: 4
-//     //     }
-//     //   ];
-//   return (
-//     <div>
-//         <GuestNavBar/>
-//         <div className="flex flex-col w-full h-full gap-4 px-10 pt-20">
-//         <p className="text-xl font-normal font-fredoka">Reviews</p>
-//         {/* {reviews.map((review, index) => (
-            
-//         <ReviewComponent 
-//           key={review.id} 
-//           comment={review.note} 
-//           name={review.name} 
-//           rate={review.rate} 
-//         />
-//       ))} */}
-//         <div className='m-3'>
-//         {reviews && reviews.length ===0 &&
-//         <p className='text-xl text-center font-nunito'>No Reviews</p>}
-//         {reviews && reviews.length > 0 &&
-//              (reviews.map((review) => (
-        
-            
-//                 <ReviewComponent 
-//                   key={review.id} 
-//                   comment={review.note} 
-//                   name={review.user} 
-//                   rate={review.rate_number} 
-//                 />
-//               )))
-        
-//         }
-//      </div>
-
-//         </div>
-      
-//     </div>
-//   )
-// }
-
-// export default ReviewPage
 
 
 // pages/ReviewPage.tsx
@@ -89,9 +18,12 @@ const ReviewPage = () => {
   }, [dispatch]);
 
   return (
-    <div>
-       <GuestNavBar />
-       <div className="w-full p-4 pt-20 mb-10 space-y-4 md:p-8">
+    // <div>
+    //    <GuestNavBar />
+    //    <div className="w-full p-4 pt-20 mb-10 space-y-4 md:p-8">
+      <div className="w-full h-full">
+      <GuestNavBar />
+      <div className="w-full pt-20 mb-10 px-7">
        
       <h1 className="mb-4 text-xl font-bold md:text-2xl font-fredoka">Customer Reviews</h1>
 

@@ -137,6 +137,8 @@ export const fetchDiscountedItems = createAsyncThunk<Discount[], void, { rejectV
   async (_, { rejectWithValue }) => {
     try {
       const response = await AxiosInstance.get<Discount[]>('items/discounts/', { withAuth: true });
+      console.log("discount items");
+      console.log(response);
       return response.data;
     } catch (err: any) {
       const errorMsg = err.response?.data?.detail || 'Failed to fetch discounts';

@@ -250,15 +250,19 @@ const OwnerDiscountAdd: React.FC<OwnerDiscountAddProps> = ({ onClose }) => {
 
     if (validateForm()) {
       const formData = new FormData();
-      formData.append("menu_id", formState.menuId);
+      formData.append("menu_item_id", formState.menuId);
       formData.append("percentage", formState.discountedPercentage);
       if (formState.start_date) formData.append("start_date", formState.start_date);
       if (formState.end_date) formData.append("end_date", formState.end_date);
+      console.log("disc payload");
+      console.log(formData.get("menu_id"));
 
       try {
         const response = await AxiosInstance.post("items/discounts/", formData, { withAuth: true });
+        console.log("discount response");
+        console.log(response);
 
-        if (response.status === 200) {
+        if (response.status === 201) {
           notify("Discount added successfully!", "success");
 
           setTimeout(() => {
@@ -273,6 +277,8 @@ const OwnerDiscountAdd: React.FC<OwnerDiscountAddProps> = ({ onClose }) => {
           setTimeout(() => setFormVisible(false), 2200);
         }
       } catch (error) {
+        console.log("disc error");
+        console.log(error);
         notify("An error occurred while adding the discount.", "error");
         setTimeout(() => setFormVisible(false), 2200);
       }

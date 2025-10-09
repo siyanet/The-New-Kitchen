@@ -46,6 +46,7 @@ export const fetchKitchens = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await AxiosInstance.get('staffs/kitchens/',{withAuth:true});
+    
       return response.data as Kitchen[];
     } catch (error: any) {
       return rejectWithValue(error.response?.data?.detail || 'Failed to fetch kitchens');

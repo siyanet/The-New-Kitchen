@@ -51,8 +51,7 @@ export const fetchMenus = createAsyncThunk<Menu[]>(
   async (_, { rejectWithValue }) => {
     try {
       const response = await AxiosInstance.get<Menu[]>('items/menus/'); // update endpoint if needed
-      console.log("menus")
-      console.log(response.data)
+     
       return response.data;
     } catch (err: any) {
       const message =

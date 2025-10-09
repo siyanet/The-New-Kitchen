@@ -98,7 +98,7 @@ const Footer = () => {
     <div className="mt-20 border-t-2 h-[300px] border-black pt-1">
       <div className="flex justify-between w-full h-full">
         <div className="w-1/4 h-full">
-          <img src="footerleft.png" className="object-cover w-full h-full" />
+          <img src="/footerleft.png" className="object-cover w-full h-full" />
         </div>
 
         <div className="w-full h-full">
@@ -135,7 +135,7 @@ const Footer = () => {
         </div>
 
         <div className="flex justify-end w-1/4 h-full">
-          <img src="footerleft.png" className="w-full h-full" />
+          <img src="/footerleft.png" className="w-full h-full" />
         </div>
       </div>
     </div>

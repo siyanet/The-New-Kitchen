@@ -130,7 +130,7 @@ const MenuPage = () => {
 
           <div className="flex items-center justify-center w-full h-full max-w-2xl lg:w-1/2 mt-7">
             <img
-              src="MenuChef.png"
+              src="/MenuChef.png"
               className="w-full h-auto max-h-[400px] md:max-h-[700px] max-w-[400px] md:max-w-[900px] object-cover"
               alt="Chef"
             />

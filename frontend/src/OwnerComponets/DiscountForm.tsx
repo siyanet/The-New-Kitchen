@@ -79,7 +79,7 @@ const DiscountForm: React.FC<DiscountFormProps> = ({
 
         <InputField
           label="Start Date"
-          name="startDate"
+          name="start_date"
           value={formState.start_date}
           onChange={handleChange}
           error={errors.startDate}
@@ -88,7 +88,7 @@ const DiscountForm: React.FC<DiscountFormProps> = ({
 
         <InputField
           label="End Date"
-          name="endDate"
+          name="end_date"
           value={formState.end_date}
           onChange={handleChange}
           error={errors.endDate}

@@ -53,8 +53,8 @@ const BranchForm: FC<BranchFormProps> = ({ onClick, branchToEdit }) => {
     setLoading(true);
 
     const endpoint = branchToEdit
-      ? `branches/${branchToEdit.id}/`
-      : "branches/";
+      ? `restaurant/branches/${branchToEdit.id}/`
+      : "restaurant/branches/";
 
     try {
       const response = branchToEdit

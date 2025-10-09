@@ -106,6 +106,17 @@ const handleFileChange = (name: string, file: File | null) => {
     validateField(name as keyof T, value);
   };
 
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const { name, value } = e.target;
+  setFormState((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+  validateField(name as keyof typeof formState, value);
+};
+
+
   const validateField = (name: keyof T, value: any) => {
     const rules = validationRules[name];
     let errorMsg = "";
@@ -149,6 +160,7 @@ const handleFileChange = (name: string, file: File | null) => {
     formState,
     errors,
     handleChange,
+    handleSelectChange,
     handleFileChange,
     validateForm,
     setFormState,
