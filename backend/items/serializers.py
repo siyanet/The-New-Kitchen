@@ -74,6 +74,9 @@ class ExtraSerializer(serializers.ModelSerializer):
 
 class DiscountSerializer(serializers.ModelSerializer):
     menu = MenuSerializer(source = "menu_item", read_only=True)
+    menu_item_id = serializers.PrimaryKeyRelatedField(
+        queryset=Menu.objects.all(), source='menu_item', write_only=True
+    )
     
     class Meta:
         model = Discount
