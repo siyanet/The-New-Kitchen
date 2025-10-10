@@ -11,6 +11,7 @@ import { fetchUser } from "../Redux/UserSlice";
 
 import Logout from "./Logout";
 import { getSubdomainFromPath } from "./utitlites";
+import Logo from "./Logo";
 // import Logo from "./logo";
 
 const GuestNavBar = () => {
@@ -48,10 +49,10 @@ useEffect(() => {
     <div className="fixed z-50 w-full shadow-md ">
       <div className="flex items-center justify-between px-6 py-3 bg-white h-14">
      
-        {/* <div className="w-1/4">
+        <div className="w-1/4">
           <Logo/>
           
-        </div> */}
+        </div>
 
         {/* Burger Icon for Small Screens */}
         <div className="block pr-3 md:hidden">

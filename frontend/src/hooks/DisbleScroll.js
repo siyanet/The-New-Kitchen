@@ -23,7 +23,7 @@ import { useSelector } from 'react-redux'
 import { ClipLoader } from 'react-spinners';
 
 const Footer = () => {
-    const { status, category } = useSelector((state) => state.category);
+    const { status } = useSelector((state) => state.category);
 
     if (status === "loading") {
         return <ClipLoader />;
