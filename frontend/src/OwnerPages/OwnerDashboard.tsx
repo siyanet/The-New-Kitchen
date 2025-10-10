@@ -111,9 +111,9 @@ import OwnerHeader from '../OwnerComponets/OwnerTitle';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 // Define prop type
-interface DashboardProps {
-  branchId: string;
-}
+// interface DashboardProps {
+//   branchId: string;
+// }
 
 // Define types for data shape
 interface BestSeller {
@@ -131,7 +131,7 @@ interface StatusBreakdown {
   count: number;
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ branchId }) => {
+const Dashboard: React.FC = () => {
   const [bestSellers, setBestSellers] = useState<BestSeller[]>([]);
   const [totalRevenue, setTotalRevenue] = useState<number>(0);
   const [ordersData, setOrdersData] = useState<OrderData[]>([]);
@@ -158,7 +158,7 @@ const Dashboard: React.FC<DashboardProps> = ({ branchId }) => {
     };
 
     fetchDashboard();
-  }, [branchId]);
+  });
 
   const chartData = {
     labels: ordersData.map((item) => item.date),

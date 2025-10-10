@@ -14,7 +14,7 @@ import {
 } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import OwnerDashboard from './OwnerPages/OwnerDashboard';
-import ChefHomePage from './chef/ChefHomePage';
+import ChefHomePage from './Chef/ChefHomePage';
 import WaiterLandingPage from './waiter/WaiterLandingPage';
 import SpecialDealsPage from './pages/SpecialDealsPage';
 import MenuPage from './pages/MenuPage';
@@ -35,7 +35,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getSubdomainFromPath } from './Components/utitlites';
 import { fetchUser } from './Redux/UserSlice';
-import { AppDispatch } from './Redux/Store';
+import { AppDispatch, RootState } from './Redux/Store';
 import BranchesPage from './OwnerPages/OwnerBranchView';
 import OwnerKitchenView from './OwnerPages/ownerKichenView';
 import OwnerWaiterView from './OwnerPages/ownerWaiterView';
@@ -72,10 +72,10 @@ function App() {
           path="/thekitchenethio/:subdomain/OwnerCategoryView" 
           element={<ProtectedRoute><OwnerCatagoryView /></ProtectedRoute>} 
         />
-        <Route 
+        {/* <Route 
           path="/thekitchenethio/:subdomain/CategoryForm" 
           element={<ProtectedRoute><CatagoryForm /></ProtectedRoute>} 
-        />
+        /> */}
         <Route 
           path="/thekitchenethio/:subdomain/CustomerOrderView" 
           element={<ProtectedRoute><CustomerOrderView /></ProtectedRoute>} 
