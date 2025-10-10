@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from "react";
-import Logo from "./logo";
+
 import NavBars from "./NavBars";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +11,7 @@ import { fetchUser } from "../Redux/UserSlice";
 
 import Logout from "./Logout";
 import { getSubdomainFromPath } from "./utitlites";
+import Logo from "./logo";
 
 const GuestNavBar = () => {
  
@@ -48,7 +49,7 @@ useEffect(() => {
       <div className="flex items-center justify-between px-6 py-3 bg-white h-14">
      
         <div className="w-1/4">
-          <Logo />
+          <Logo/>
           
         </div>
 
