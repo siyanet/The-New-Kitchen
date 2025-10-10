@@ -1,5 +1,5 @@
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { notify } from '../Components/notify';
 
@@ -10,7 +10,7 @@ const TestToast = () => {
       };
     
       return (
-        <div className='flex w-full h-full justify-center items-center'>
+        <div className='flex items-center justify-center w-full h-full'>
           <button onClick={handleClick}>Show Toast</button>
           <ToastContainer position="top-right" autoClose={5000} />
         </div>

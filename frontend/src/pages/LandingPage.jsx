@@ -10,9 +10,7 @@ import ReserveTable from '../Components/ReserveTable';
 import TestimonialsSection from '../Components/TestimonialsSection';
 import PizzaHutMap from '../Components/PizzaHutMap';
 import Footer from '../Components/footer';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { useEffect } from 'react';
-// import { fetchUser } from '../Redux/UserSlice';
+
 
 const LandingPage = () => {
   // const dispatch = useDispatch(); 

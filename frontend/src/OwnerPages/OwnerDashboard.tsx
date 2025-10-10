@@ -1,94 +1,3 @@
-// import React from 'react'
-// import OwnerNavBar from '../OwnerComponets/OwnerNavBar'
-// import OwnerSideBar from '../OwnerComponets/OwnerSideBar'
-
-// const OwnerDashboard = () => {
-//   return (
-//     <div className='flex flex-col w-full h-full'>
-//         <OwnerNavBar/>
-//         <OwnerSideBar/>
-//         <div className="pt-10 pr-20 pl-28">
-//   {/* Welcome Section */}
-//   <div className="mb-10 text-center">
-//     <h1 className="text-4xl font-fredoka text-red">Welcome to Your Restaurant Dashboard</h1>
-//     <p className="mt-4 text-lg text-gray-600 font-nunito">
-//       Manage your restaurant operations efficiently and stay on top of your orders, menus, and staff.
-//     </p>
-//   </div>
-
-//   {/* Overview Section */}
-//   <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-//     {/* Orders Card */}
-//     <div className="p-6 text-center bg-white rounded-lg shadow-lg">
-//       <i className="mb-3 text-4xl fas fa-receipt text-red"></i> {/* Orders Icon */}
-//       <h2 className="text-xl text-black font-fredoka">Orders</h2>
-//       <p className="mt-2 text-gray-600 font-nunito">Track customer orders and ensure timely delivery.</p>
-//     </div>
-
-//     {/* Menus Card */}
-//     <div className="p-6 text-center bg-white rounded-lg shadow-lg">
-//       <i className="mb-3 text-4xl fas fa-utensils text-red"></i> {/* Menus Icon */}
-//       <h2 className="text-xl text-black font-fredoka">Menus</h2>
-//       <p className="mt-2 text-gray-600 font-nunito">Create and manage your restaurant’s menu with ease.</p>
-//     </div>
-
-//     {/* Staff Card */}
-//     <div className="p-6 text-center bg-white rounded-lg shadow-lg">
-//       <i className="mb-3 text-4xl fas fa-user-friends text-red"></i> {/* Staff Icon */}
-//       <h2 className="text-xl text-black font-fredoka">Staff</h2>
-//       <p className="mt-2 text-gray-600 font-nunito">Manage staff schedules and roles within the restaurant.</p>
-//     </div>
-//   </div>
-
-//   {/* Financial Section */}
-//   <div className="mt-10 text-center">
-//     <h2 className="text-3xl text-black font-fredoka">Financial Overview</h2>
-//     <p className="mt-4 text-lg text-gray-600 font-nunito">
-//       Monitor your restaurant's financial performance and gain insights into daily sales.
-//     </p>
-
-//     {/* Financial Stats */}
-//     <div className="grid grid-cols-1 gap-8 mt-8 sm:grid-cols-2 lg:grid-cols-4">
-//       {/* Daily Sales */}
-//       <div className="p-6 text-center bg-white rounded-lg shadow-lg">
-//         <i className="mb-3 text-4xl text-green-600 fas fa-chart-line"></i> {/* Sales Icon */}
-//         <h3 className="text-xl text-black font-fredoka">Daily Sales</h3>
-//         <p className="mt-2 text-gray-600 font-nunito">$2,500</p>
-//       </div>
-
-//       {/* Monthly Revenue */}
-//       <div className="p-6 text-center bg-white rounded-lg shadow-lg">
-//         <i className="mb-3 text-4xl text-blue-600 fas fa-dollar-sign"></i> {/* Revenue Icon */}
-//         <h3 className="text-xl text-black font-fredoka">Monthly Revenue</h3>
-//         <p className="mt-2 text-gray-600 font-nunito">$45,000</p>
-//       </div>
-
-//       {/* Total Expenses */}
-//       <div className="p-6 text-center bg-white rounded-lg shadow-lg">
-//         <i className="mb-3 text-4xl text-yellow-600 fas fa-money-bill-wave"></i> {/* Expenses Icon */}
-//         <h3 className="text-xl text-black font-fredoka">Total Expenses</h3>
-//         <p className="mt-2 text-gray-600 font-nunito">$15,000</p>
-//       </div>
-
-//       {/* Profit */}
-//       <div className="p-6 text-center bg-white rounded-lg shadow-lg">
-//         <i className="mb-3 text-4xl text-purple-600 fas fa-wallet"></i> {/* Profit Icon */}
-//         <h3 className="text-xl text-black font-fredoka">Profit</h3>
-//         <p className="mt-2 text-gray-600 font-nunito">$30,000</p>
-//       </div>
-//     </div>
-//   </div>
-// </div>
-
-
-      
-//     </div>
-//   )
-// }
-
-// export default OwnerDashboard
-
-
 
 // Dashboard.js
 import React, { useEffect, useState } from 'react';
@@ -110,12 +19,7 @@ import OwnerHeader from '../OwnerComponets/OwnerTitle';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
-// Define prop type
-// interface DashboardProps {
-//   branchId: string;
-// }
 
-// Define types for data shape
 interface BestSeller {
   portion__menu__name: string;
   total_sold: number;

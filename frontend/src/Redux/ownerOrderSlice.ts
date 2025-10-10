@@ -43,15 +43,7 @@ const initialState: OrderState = {
   error: null
 };
 
-// export const fetchOrders = createAsyncThunk<Order[]>(
-//   'orders/fetchOrders',
-//   async () => {
-//     const response = await AxiosInstance.get('orders/orders/',{withAuth: true});
-//     console.log("ownerorders")
-//     console.log(response.data)
-//     return response.data as Order[];
-//   }
-// );
+
 
 export const fetchOrders = createAsyncThunk<Order[]>(
   'orders/fetchOrders',

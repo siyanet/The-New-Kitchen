@@ -2,12 +2,12 @@
 import { useEffect, useState } from "react";
 import Logo from "./logo";
 import NavBars from "./NavBars";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CartDetail from "./CartDetail";
 // import { logout } from "../Redux/UserSlice";
-import {getCurrentSubdomain} from "../utils/urlHelpers";
-import { clearUser, fetchUser } from "../Redux/UserSlice";
+// import {getCurrentSubdomain} from "../utils/urlHelpers";
+import { fetchUser } from "../Redux/UserSlice";
 
 import Logout from "./Logout";
 import { getSubdomainFromPath } from "./utitlites";
@@ -15,7 +15,7 @@ import { getSubdomainFromPath } from "./utitlites";
 const GuestNavBar = () => {
  
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
   const [menuOpen, setMenuOpen] = useState(false);

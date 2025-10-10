@@ -3,8 +3,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../Redux/Store";
 import { fetchOrders } from "../Redux/ownerOrderSlice";
-import ChefOrderCard from "../chef/ChefOrderCard";
+
 import WaiterLayout from "./WaiterLayout";
+import ChefOrderCard from "../Chef/ChefOrderCard";
 
 
 const WaitersOrdersPage = () => {

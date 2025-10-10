@@ -60,7 +60,8 @@ const OwnerWaiterForm: FC<WaiterFormProps> = ({ onClick, waiterToEdit }) => {
         phone_number: waiterToEdit.staff?.user?.phone_number || '',
         password: '',
         re_password: '',
-        branch_id: waiterToEdit.branch?.id || '',
+        // branch_id: waiterToEdit.branch?.id || '',
+         branch_id:  '',
       });
     }
   }, [waiterToEdit, setFormState]);

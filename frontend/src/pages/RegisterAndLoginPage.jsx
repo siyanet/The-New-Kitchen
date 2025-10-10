@@ -23,7 +23,7 @@ const AuthPage = () => {
   const [logPasswordError,setLogPasswordError] = useState("");
   const [regPhoneNumber,setRegPhoneNumber] = useState("251");
   const [regPhoneError, setRegPhoneError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [ setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   

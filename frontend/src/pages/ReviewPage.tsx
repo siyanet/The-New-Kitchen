@@ -4,10 +4,11 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ReviewComponent from '../components/ReviewComponent';
+
 import { AppDispatch, RootState } from '../Redux/Store';
 import { fetchRatings } from '../Redux/ReviewSlice';
 import GuestNavBar from '../Components/GuestNavBar';
+import ReviewComponent from '../Components/ReviewComponent';
 
 const ReviewPage = () => {
   const dispatch = useDispatch<AppDispatch>();

@@ -64,9 +64,10 @@
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../Redux/store";
+
 import { fetchTenantInfo } from "../Redux/TenantSlice";
 import { ClipLoader } from "react-spinners";
+import { AppDispatch, RootState } from "../Redux/Store";
 
 const Footer = () => {
   const dispatch = useDispatch<AppDispatch>();
