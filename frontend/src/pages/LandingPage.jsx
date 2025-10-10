@@ -10,6 +10,7 @@ import ReserveTable from '../Components/ReserveTable';
 import TestimonialsSection from '../Components/TestimonialsSection';
 import PizzaHutMap from '../Components/PizzaHutMap';
 import Footer from '../Components/footer';
+import FreeTierNotice from '../Components/FreeTierNotice';
 
 
 const LandingPage = () => {
@@ -34,6 +35,7 @@ const LandingPage = () => {
   // }
   return (
     <div className='w-full h-full'>
+      <FreeTierNotice/>
          <GuestNavBar />
          
          <LandingHeader/>

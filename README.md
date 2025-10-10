@@ -36,6 +36,16 @@ Each tenant can then log in and manage their restaurant through their own enviro
 ### 👑 **Owner**
 
 The restaurant owner manages the entire restaurant ecosystem within their tenant dashboard.
+## Demo Access
+
+You can explore the Owner Dashboard using the following demo credentials:
+
+- **Restaurant (Tenant):** PizzaHut  
+- **Owner Email:** owner@pizzahut.demo  
+- **Password:** demo1234
+
+> Note: These are demo credentials for testing purposes only.
+
 
 #### Features:
 
