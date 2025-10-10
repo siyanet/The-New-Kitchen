@@ -1,5 +1,5 @@
 
-import Logo from '../Components/logo'
+import Logo from '../Components/Logo'
 import Logout from '../Components/Logout'
 
 const OwnerNavBar = () => {

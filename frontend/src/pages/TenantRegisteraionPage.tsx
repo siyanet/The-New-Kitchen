@@ -37,13 +37,23 @@ const TenantRegistration: React.FC = () => {
   const [response, setResponse] = useState<TenantResponse | null>(null);
   const [error, setError] = useState<string>('');
 
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  //   const { name, value, type, checked } = e.target;
+  //   setFormData({
+  //     ...formData,
+  //     [name]: type === 'checkbox' ? checked : value,
+  //   });
+  // };
+
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? checked : value,
-    });
-  };
+  const target = e.target as HTMLInputElement;
+  const value = target.type === "checkbox" ? target.checked : target.value;
+  // ...use value as needed
+};
+  
+  
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

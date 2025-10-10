@@ -10,7 +10,7 @@ interface DiscountFormProps {
     start_date: string;
     end_date: string;
   };
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleChange: (name:string,value:string) => void;
   errors: {
     discountedPercentage?: string;
     startDate?: string;
