@@ -15,7 +15,7 @@ import {
 import LandingPage from './pages/LandingPage';
 import OwnerDashboard from './OwnerPages/OwnerDashboard';
 import ChefHomePage from './Chef/ChefHomePage';
-import WaiterLandingPage from './waiter/WaiterLandingPage';
+// import WaiterLandingPage from './waiter/WaiterLandingPage';
 import SpecialDealsPage from './pages/SpecialDealsPage';
 import MenuPage from './pages/MenuPage';
 import ReviewPage from './pages/ReviewPage';
@@ -24,10 +24,10 @@ import OwnerCatagoryView from './OwnerPages/OwnerCatagoryView';
 import OrdersTable from './OwnerPages/orderTable';
 import AuthPage from './pages/RegisterAndLoginPage';
 import ProtectedRoute from './Components/ProtectedRoute';
-import CatagoryForm from './OwnerComponets/CatagoryForm';
+
 import CustomerOrderView from './pages/CustomerOrderView';
-import OwnerTableView from './OwnerPages/OwnerTableView';
-import OwnerStaff from './OwnerPages/OwnerStaff';
+// import OwnerTableView from './OwnerPages/OwnerTableView';
+// import OwnerStaff from './OwnerPages/OwnerStaff';
 import OwnerDiscount from './OwnerPages/OwnerDiscount';
 import OwnerReview from './OwnerPages/OwnerReview';
 import WaiterHomePage from './waiter/WaiterHomePage';
@@ -115,10 +115,10 @@ function App() {
           path="/thekitchenethio/:subdomain/waiterHomePage" 
           element={<ProtectedRoute><WaiterHomePage /></ProtectedRoute>} 
         />
-        <Route 
+        {/* <Route 
           path="/thekitchenethio/:subdomain/waiterLandingPage" 
           element={<ProtectedRoute><WaiterLandingPage /></ProtectedRoute>} 
-        />
+        /> */}
         <Route
         path = "/thekitchenethio/:subdomain/waiterLoginPage"
         element = { <WaiterQRLogin/>}
